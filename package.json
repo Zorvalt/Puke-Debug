@@ -1,0 +1,47 @@
+{
+	"name": "puke-debug",
+	"displayName": "Puke-Debug",
+	"description": "Inserts emetic debug lines where you need them. Last resort option in debugging...",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.33.1"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:pukeDebug.insertPukePoint",
+		"onCommand:pukeDebug.clearPukePoints"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "pukeDebug.insertPukePoint",
+				"title": "Insert puke-point"
+			},
+			{
+				"command": "pukeDebug.clearPukePoints",
+				"title": "Clear all puke-points in current file"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^5.2.6",
+		"@types/node": "^10.12.21",
+		"@types/vscode": "^1.38.0",
+		"glob": "^7.1.4",
+		"mocha": "^6.1.4",
+		"typescript": "^3.3.1",
+		"tslint": "^5.12.1",
+		"vscode-test": "^1.0.2"
+	}
+}
