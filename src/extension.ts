@@ -68,6 +68,10 @@ export function activate(context: vscode.ExtensionContext) {
 
 
 	// TODO Add a command to update debug line numbers which is triggered by saving the file
+
+	// TODO Add commands to enable/disable/toggle debug lines
+
+	// TODO Update all the commands to handle a selected range
 }
 
 // this method is called when your extension is deactivated
