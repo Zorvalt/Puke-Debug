@@ -9,11 +9,11 @@ ONLY in those cases should you use this extension ! It is ***NOT*** a good way t
 The inserted debug outputs (puke points) contain the line number and the name of the file.  
 This extension allows you to easily add thos horrible debug lines like:
 ```
-print('PUKE-DEBUG: file: /src/foo, line: 6')
+print('PUKE-DEBUG: file: /src/foo, line: 6') //PKDBG
 aMysteriousFunctionCall()
-print('PUKE-DEBUG: file: /src/foo, line: 8')
+print('PUKE-DEBUG: file: /src/foo, line: 8') //PKDBG
 aMysteriousFunctionCall2()
-print('PUKE-DEBUG: file: /src/foo, line: 10')
+print('PUKE-DEBUG: file: /src/foo, line: 10') //PKDBG
 ...
 ```
 instead of

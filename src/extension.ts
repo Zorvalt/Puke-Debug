@@ -20,6 +20,8 @@ export function activate(context: vscode.ExtensionContext) {
 		// current editor
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
+			// TODO If line is not empty, create new line
+
 			const position = editor.selection.active;
 			const line = position.line + 1;
 
