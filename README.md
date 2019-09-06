@@ -3,7 +3,7 @@ A VS Code extension that inserts emetic debug lines where you need them. Last re
 
 ## Experimental, use at your own risks
 This is my first extension and is a complete work in progress!  
-It *seems to work* but I cannot guarenty anything. *Use at your own risks*.  
+It *seems to work* but I cannot guarantee anything. *Use at your own risks*.  
 **I AM NOT RESPONSIBLE FOR ANY LOSS OF CODE OR OTHER PROBLEM YOU MIGHT ENCOUNTER**
 
 ## Why!?!?!?!?!
