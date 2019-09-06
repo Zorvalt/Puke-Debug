@@ -26,21 +26,21 @@ print('3')
 ...
 ```
 
-Current commands:
+### Current commands:
 * Insert new puke point
 * Clear all puke points in the current file
 
-Planned commands:
+### Planned commands:
 * Re-compute the line numbers
 * Toggle (enable/disable) puke points
 
-Planned features:
+### Planned features:
 * Auto-recompute line numbers on save
 * If some code is selected, the commands only impact the selection
 
 ## Extension Settings
 None yet.  
-Planned settings are:
+### Planned settings are:
 * prefix: The beging of the debug line. Default = 'PUKE-DEBUG: '
 * debug_function_name: The output function. Default = 'fmt.Println'
 * comment_tag: The tag in the comment to recognize debug lines. Default = 'PKDBG'
