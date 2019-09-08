@@ -20,13 +20,16 @@ export function activate(context: vscode.ExtensionContext) {
 	console.log('Congratulations, your extension "puke-debug" is now active!');
 
 	let disposable1 = vscode.commands.registerCommand('pukeDebug.insertPukePoint', () => {
-		// current editor
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			// TODO If line is not empty, create new line
 
-			const position = editor.selection.active;
-			const line = position.line + 1;
+			let position = editor.selection.active;
+			let line = position.line + 1;
+			if(!editor.document.lineAt(line).isEmptyOrWhitespace) {
+				position = new vscode.Position(line, 0);
+				line++;
+			}
 
 			const rootPath = vscode.workspace.rootPath;
 			let filename = editor.document.fileName;
@@ -49,13 +52,15 @@ export function activate(context: vscode.ExtensionContext) {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			const text = editor.document.getText();
-			const regex = new RegExp('^.+'+escapeRegExp(comment) + '$', 'gm');
+			// Matches all lines ending with the puke-point comment
+			const regex = new RegExp(escapeRegExp(make_comment()) + '$', 'gm');
 
 			let match;
 			editor.edit(function(editBuilder: vscode.TextEditorEdit) {
 				while(match = regex.exec(text)) {
-					const begin = editor.document.positionAt(match.index);
-					const end = new vscode.Position(begin.line+1, 0);
+					const position = editor.document.positionAt(match.index);
+					const begin = new vscode.Position(position.line, 0);
+					const end = new vscode.Position(position.line+1, 0);
 					editBuilder.delete(new vscode.Range(begin, end));
 				}
 			});
