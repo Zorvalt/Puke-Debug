@@ -1,16 +1,19 @@
 import * as vscode from 'vscode';
 
-// TODO Put this in a config file
-const puke_point_format = 'fmt.Println(\'PUKE-POINT: filename: %filename%, line: %line%\')';
-const comment_tag = 'PKDBG';
-const comment_prefix = '//';
-const comment_sufix = '';
-const comment = ' ' + comment_prefix + ' ' + comment_tag + ' ' + comment_sufix;
-
 // By Mathias Bynens
 // From: https://stackoverflow.com/questions/3115150/how-to-escape-regular-expression-special-characters-using-javascript
 function escapeRegExp(str: string) {
 	return str.replace(/[.*+?^${}()|[\]\\\/]/g, '\\$&'); // $& means the whole matched string
+}
+
+function make_comment(): string {
+	const conf = vscode.workspace.getConfiguration('puke-debug');
+	return conf.commentOpening + ' ' + conf.commentTAG + (' ' + conf.commentClosing).trimRight();
+}
+
+function make_puke_point(filename: string, line: string): string {
+	const puke_point = vscode.workspace.getConfiguration('puke-debug').pukePointFormat;
+	return puke_point.replace('%filename%', filename).replace('%line%', line) + ' ' + make_comment() + '\n';
 }
 
 export function activate(context: vscode.ExtensionContext) {
@@ -31,9 +34,8 @@ export function activate(context: vscode.ExtensionContext) {
 				filename = filename.substr(rootPath.length);
 			}
 
-			const puke_point = puke_point_format.replace('%filename%', filename).replace('%line%', line.toString()) + comment;
 			editor.edit(function (editBuilder: vscode.TextEditorEdit) {
-				editBuilder.insert(position, puke_point);
+				editBuilder.insert(position, make_puke_point(filename, line.toString()));
 			});
 
 			// TODO Update line numbers of other debug

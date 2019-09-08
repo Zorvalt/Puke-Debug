@@ -15,6 +15,32 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "Puke-Debug",
+			"properties": {
+				"puke-debug.pukePointFormat": {
+					"type": "string",
+					"default": "fmt.Println('PUKE-POINT: filename: %filename%, line: %line%')",
+					"description": "Puke-Point format. Use %line% and %filename% as tags for debug info."
+				},
+				"puke-debug.commentOpening": {
+					"type": "string",
+					"default": "//",
+					"description": "The string to open a comment"
+				},
+				"puke-debug.commentTAG": {
+					"type": "string",
+					"default": "PKDBG",
+					"description": "The comment tag to identify puke-points"
+				},
+				"puke-debug.commentClosing": {
+					"type": "string",
+					"default": "",
+					"description": "The string to close a comment"
+				}
+			}
+		},
 		"commands": [
 			{
 				"command": "pukeDebug.insertPukePoint",
