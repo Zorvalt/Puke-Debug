@@ -16,32 +16,54 @@ function make_puke_point(filename: string, line: string): string {
 	return puke_point.replace('%filename%', filename).replace('%line%', line) + ' ' + make_comment() + '\n';
 }
 
+function currentFileName(document: vscode.TextDocument): string {
+	const rootPath = vscode.workspace.rootPath;
+	let filename = document.fileName;
+	if (rootPath && filename.startsWith(rootPath)) {
+		filename = filename.substr(rootPath.length);
+	}
+	return filename;
+}
+
+function updatePukePoints(editor: vscode.TextEditor) {
+	const text = editor.document.getText();
+	// Matches all lines ending with the puke-point comment
+	const regex = new RegExp(escapeRegExp(make_comment()) + '$', 'gm');
+
+	let match;
+	editor.edit(function(editBuilder: vscode.TextEditorEdit) {
+		while(match = regex.exec(text)) {
+			const position = editor.document.positionAt(match.index);
+			const begin = new vscode.Position(position.line, 0);
+			const end = new vscode.Position(position.line + 1, 0);
+			const filename = currentFileName(editor.document);
+			const line = (begin.line+1).toString();
+			editBuilder.replace(new vscode.Range(begin, end), make_puke_point(filename, line));
+		}
+	});
+}
+
 export function activate(context: vscode.ExtensionContext) {
 	console.log('Congratulations, your extension "puke-debug" is now active!');
 
 	let disposable1 = vscode.commands.registerCommand('pukeDebug.insertPukePoint', () => {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
-			// TODO If line is not empty, create new line
-
 			let position = editor.selection.active;
 			let line = position.line + 1;
+
+			// If current line is not empty,
 			if(!editor.document.lineAt(line).isEmptyOrWhitespace) {
 				position = new vscode.Position(line, 0);
 				line++;
 			}
 
-			const rootPath = vscode.workspace.rootPath;
-			let filename = editor.document.fileName;
-			if (rootPath && filename.startsWith(rootPath)) {
-				filename = filename.substr(rootPath.length);
-			}
-
+			const filename = currentFileName(editor.document);
 			editor.edit(function (editBuilder: vscode.TextEditorEdit) {
 				editBuilder.insert(position, make_puke_point(filename, line.toString()));
 			});
 
-			// TODO Update line numbers of other debug
+			updatePukePoints(editor);
 		}
 	});
 
@@ -69,8 +91,18 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(disposable2);
 
+	let disposable3 = vscode.commands.registerCommand('pukeDebug.updatePukePoints', () => {
+		const editor = vscode.window.activeTextEditor;
+		if (editor) { updatePukePoints(editor); }
+	});
+	context.subscriptions.push(disposable3);
 
-	// TODO Add a command to update debug line numbers which is triggered by saving the file
+	vscode.workspace.onWillSaveTextDocument(() => {
+		const editor = vscode.window.activeTextEditor;
+		if (editor && vscode.workspace.getConfiguration('puke-debug').updateOnSave) {
+			updatePukePoints(editor);
+		}
+	});
 
 	// TODO Add commands to enable/disable/toggle debug lines
 

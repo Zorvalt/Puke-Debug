@@ -10,8 +10,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:pukeDebug.insertPukePoint",
-		"onCommand:pukeDebug.clearPukePoints"
+		"*"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -38,6 +37,11 @@
 					"type": "string",
 					"default": "",
 					"description": "The string to close a comment"
+				},
+				"puke-debug.updateOnSave": {
+					"type": "boolean",
+					"default": "true",
+					"description": "Updates the Puke-Points on save"
 				}
 			}
 		},
@@ -48,7 +52,11 @@
 			},
 			{
 				"command": "pukeDebug.clearPukePoints",
-				"title": "Clear all puke-points in current file"
+				"title": "Clears all puke-points in current file"
+			},
+			{
+				"command": "pukeDebug.updatePukePoints",
+				"title": "Updates all puke-points in current file"
 			}
 		]
 	},
