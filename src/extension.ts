@@ -49,21 +49,15 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable1 = vscode.commands.registerCommand('pukeDebug.insertPukePoint', () => {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
-			let position = editor.selection.active;
-			let line = position.line + 1;
-
-			// If current line is not empty,
-			if(!editor.document.lineAt(line).isEmptyOrWhitespace) {
-				position = new vscode.Position(line, 0);
-				line++;
-			}
-
 			const filename = currentFileName(editor.document);
-			editor.edit(function (editBuilder: vscode.TextEditorEdit) {
-				editBuilder.insert(position, make_puke_point(filename, line.toString()));
-			});
 
-			updatePukePoints(editor);
+			editor.edit(function (editBuilder: vscode.TextEditorEdit) {
+				for (let selection of editor.selections) {
+					const position = new vscode.Position(selection.active.line + 1, 0);
+					const line = position.line + 1;
+					editBuilder.insert(position, make_puke_point(filename, line.toString()));
+				}
+			}).then(() => updatePukePoints(editor));
 		}
 	});
 
