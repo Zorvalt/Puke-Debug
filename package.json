@@ -42,7 +42,7 @@
 					"default": {
 						"shellscript": "echo \"PUKE-POINT: filename: %filename%, line: %line%\"",
 						"c": "printf(\"PUKE: filename: %filename%, line: %line%\");",
-						"cpp": "std::cout \"PUKE: filename: %filename%, line: %line%\" << std::endl;",
+						"cpp": "std::cout << \"PUKE: filename: %filename%, line: %line%\" << std::endl;",
 						"csharp": "Console.WriteLine(\"PUKE: filename: %filename%, line: %line%\");",
 						"go": "fmt.Println('PUKE: filename: %filename%, line: %line%')",
 						"java": "System.out.println(\"PUKE: filename: %filename%, line: %line%\");",
