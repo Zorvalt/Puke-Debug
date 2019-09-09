@@ -50,8 +50,6 @@ function updatePukePoints(editor: vscode.TextEditor) {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-	console.log('Congratulations, your extension "puke-debug" is now active!');
-
 	let disposable1 = vscode.commands.registerCommand('pukeDebug.insertPukePoint', () => {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
