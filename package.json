@@ -1,11 +1,25 @@
 {
 	"name": "puke-debug",
 	"displayName": "Puke-Debug",
-	"description": "Inserts emetic debug lines where you need them. Last resort option in debugging...",
-	"version": "0.0.1",
+	"description": "Inserts simple, emetic debug lines where you need them. Last resort option in debugging...",
+	"version": "0.1.0",
 	"engines": {
 		"vscode": "^1.33.1"
 	},
+	"license": "SEE LICENSE IN LICENSE",
+	"publisher": "Zorvalt",
+	"repository": "https://github.com/Zorvalt/Puke-Debug",
+	"keywords": [
+		"debug",
+		"print",
+		"log",
+		"echo",
+		"line",
+		"useless",
+		"fun",
+		"vomit",
+		"puke"
+    ],
 	"categories": [
 		"Other"
 	],
