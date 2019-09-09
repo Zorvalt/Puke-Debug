@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { PukePoints } from './PukePoint';
 import { Sequence } from './Sequence';
+import { Exposure } from './exposure';
 
 enum Mode {
 	PukePoint,
@@ -15,6 +16,10 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable0 = vscode.commands.registerCommand('pukeDebug.insert', () => {
 		const editor = vscode.window.activeTextEditor;
 		if (editor){
+			if(editor.selection.isSingleLine && !editor.selection.isEmpty) {
+				Exposure.insert(editor);
+			}
+
 			switch(mode) {
 				case Mode.PukePoint:
 				PukePoints.insert(editor);
@@ -90,6 +95,14 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 	context.subscriptions.push(disposable6);
+
+	let disposable7 = vscode.commands.registerCommand('pukeDebug.insertExposure', () => {
+		const editor = vscode.window.activeTextEditor;
+		if (editor && editor.selection.isSingleLine && !editor.selection.isEmpty) {
+			Exposure.insert(editor);
+		}
+	});
+	context.subscriptions.push(disposable7);
 }
 
 // this method is called when your extension is deactivated

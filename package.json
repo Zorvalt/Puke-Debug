@@ -34,35 +34,59 @@
 			"properties": {
 				"puke-debug.pukePointFormat": {
 					"type": "string",
-					"default": "PUKE: filename: %filename%, line: %line%",
+					"default": "\"PUKE: filename: %filename%, line: %line%\"",
 					"description": "Puke-Point format. Use %line% and %filename% as tags for debug info."
 				},
 				"puke-debug.sequenceFormat": {
 					"type": "string",
-					"default": "PUKE: => %seq_number% <=",
+					"default": "\"PUKE: => %seq_number% <=\"",
 					"description": "Sequence format. Use %seq_number% as tag for the sequence number."
+				},
+				"puke-debug.defaultExposureFormat": {
+					"type": "string",
+					"default": "\"%name% = \" + %name%",
+					"description": "Default output format when no file type matche. Use %output% as a tag for the output."
+				},
+				"puke-debug.exposureFormats": {
+					"type":"object",
+					"default": {
+						"shellscript": "\"%name% = $%name%\"",
+						"c": "\"%name% = %s\", %name%",
+						"cpp": "\"%name% = \" << %name%",
+						"csharp": "\"%name% = \" + %name%",
+						"go": "\"%name% = \", %name%",
+						"java": "\"%name% = \" + %name%.toString()",
+						"javascript": "\"%name% = \" + %name%",
+						"makefile": "\"%name% = $%name%\"",
+						"php": "\"%name% = \" . %name%",
+						"python": "\"%name% = \" + str(%name%)",
+						"rust": "\"%name% =  {:?}\", %name%",
+						"scala": "\"%name% = \" + %name%.toString()",
+						"typescript": "\"%name% = \" + %name%"
+					},
+					"description": "Format for variable exposure. Use %name% as tag for the variable name."
 				},
 				"puke-debug.defaultOutputFormat": {
 					"type": "string",
-					"default": "print('%output%')",
+					"default": "print(%output%)",
 					"description": "Default output format when no file type matche. Use %output% as a tag for the output."
 				},
 				"puke-debug.outputFormats": {
 					"type":"object",
 					"default": {
-						"shellscript": "echo \"%output%\"",
-						"c": "printf(\"%output%\");",
-						"cpp": "std::cout << \"%output%\" << std::endl;",
-						"csharp": "Console.WriteLine(\"%output%\");",
-						"go": "fmt.Println('%output%')",
-						"java": "System.out.println(\"%output%\");",
-						"javascript": "console.log('%output%');",
-						"makefile": "echo \"%output%\"",
-						"php": "echo \"%output%\";",
-						"python": "print('%output%')",
-						"rust": "dbg!(\"'%output%'\");",
-						"scala": "println(\"%output%\")",
-						"typescript": "console.log('%output%');"
+						"shellscript": "echo %output%",
+						"c": "printf(%output%);",
+						"cpp": "std::cout << %output% << std::endl;",
+						"csharp": "Console.WriteLine(%output%);",
+						"go": "fmt.Println(%output%)",
+						"java": "System.out.println(%output%);",
+						"javascript": "console.log(%output%);",
+						"makefile": "echo %output%",
+						"php": "echo %output%;",
+						"python": "print(%output%)",
+						"rust": "dbg!(%output%);",
+						"scala": "println(%output%)",
+						"typescript": "console.log(%output%);"
 					},
 					"description": "Output formats by language. Use %output% as a tag for the output\nA list of language tags is available here: https://code.visualstudio.com/docs/languages/identifiers"
 				},
@@ -112,6 +136,10 @@
 			{
 				"command": "pukeDebug.clearSequence",
 				"title": "Clears all sequence prints"
+			},
+			{
+				"command": "pukeDebug.insertExposure",
+				"title": "Insert variable exposure"
 			}
 		],
 		"keybindings": [
