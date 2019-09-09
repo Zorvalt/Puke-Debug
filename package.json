@@ -120,6 +120,18 @@
 				"key": "ctrl+alt+p",
 				"mac": "ctrl+cmd+p",
 				"when": "editorFocus"
+			},
+			{
+				"command": "pukeDebug.insertPukePoint",
+				"key": "ctrl+alt+shift+p p",
+				"mac": "ctrl+cmd+shift+p p",
+				"when": "editorFocus"
+			},
+			{
+				"command": "pukeDebug.newSequence",
+				"key": "ctrl+alt+shift+p s",
+				"mac": "ctrl+cmd+shift+p s",
+				"when": "editorFocus"
 			}
 		]
 	},
