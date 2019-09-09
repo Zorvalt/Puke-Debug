@@ -76,8 +76,9 @@
 		"keybindings": [
 			{
 				"command": "pukeDebug.insertPukePoint",
-				"key": "ctrl+insert",
-				"mac": "cmd+insert"
+				"key": "ctrl+alt+p",
+				"mac": "ctrl+cmd+p",
+				"when": "editorFocus"
 			}
 		]
 	},

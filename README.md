@@ -34,7 +34,7 @@ ONLY in those cases should you use this extension ! It is ***NOT*** a good way t
   * Choose the comment format
 
 ### Current commands:
-* Insert new puke point (shorcut: `ctrl + insert`)
+* Insert new puke point (default shorcut: `ctrl + alt + p` or `ctrl + cmd + p ` on Mac)
 * Clear all puke points in the current file
 * Re-compute the line numbers
 
