@@ -51,5 +51,7 @@ export class Sequence {
                 editBuilder.delete(new vscode.Range(begin, end));
             }
         });
+
+        this.reset();
     }
 }

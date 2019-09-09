@@ -116,7 +116,7 @@
 		],
 		"keybindings": [
 			{
-				"command": "pukeDebug.insertPukePoint",
+				"command": "pukeDebug.insert",
 				"key": "ctrl+alt+p",
 				"mac": "ctrl+cmd+p",
 				"when": "editorFocus"
