@@ -11,8 +11,14 @@ function make_comment(): string {
 	return conf.commentOpening + ' ' + conf.commentTAG + (' ' + conf.commentClosing).trimRight();
 }
 
-function make_puke_point(filename: string, line: string): string {
-	const puke_point = vscode.workspace.getConfiguration('puke-debug').pukePointFormat;
+function make_puke_point(filename: string, line: string, languageID = ""): string {
+	const conf = vscode.workspace.getConfiguration('puke-debug');
+	let puke_point = conf.defaultPukePointFormat;
+	if (languageID !== "") {
+		if (conf.pukePointFormats.hasOwnProperty(languageID)){
+			puke_point = conf.pukePointFormats[languageID];
+		}
+	}
 	return puke_point.replace('%filename%', filename).replace('%line%', line) + ' ' + make_comment() + '\n';
 }
 
@@ -39,7 +45,10 @@ function insertPukePoint(editor: vscode.TextEditor) {
 			const indentation = indentationOfLine(editor.document, selection.active.line);
 			const position = new vscode.Position(selection.active.line + 1, 0);
 			const lineDisplayed = position.line + 1;
-			editBuilder.insert(position, indentation + make_puke_point(filename, lineDisplayed.toString()));
+			editBuilder.insert(
+				position,
+				indentation + make_puke_point(filename, lineDisplayed.toString(), editor.document.languageId)
+			);
 		}
 	}).then(() => updatePukePoints(editor));
 }
@@ -59,7 +68,10 @@ function updatePukePoints(editor: vscode.TextEditor) {
 			const end = new vscode.Position(position.line + 1, 0);
 			const filename = currentFileName(editor.document);
 			const line = (begin.line+1).toString();
-			editBuilder.replace(new vscode.Range(begin, end), make_puke_point(filename, line));
+			editBuilder.replace(
+				new vscode.Range(begin, end),
+				make_puke_point(filename, line, editor.document.languageId)
+			);
 		}
 	});
 }

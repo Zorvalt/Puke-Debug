@@ -2,7 +2,7 @@
 	"name": "puke-debug",
 	"displayName": "Puke-Debug",
 	"description": "Inserts simple, emetic debug lines where you need them. Last resort option in debugging...",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"engines": {
 		"vscode": "^1.33.1"
 	},
@@ -32,10 +32,29 @@
 			"type": "object",
 			"title": "Puke-Debug",
 			"properties": {
-				"puke-debug.pukePointFormat": {
+				"puke-debug.defaultPukePointFormat": {
 					"type": "string",
-					"default": "fmt.Println('PUKE-POINT: filename: %filename%, line: %line%')",
+					"default": "print('PUKE: filename: %filename%, line: %line%')",
 					"description": "Puke-Point format. Use %line% and %filename% as tags for debug info."
+				},
+				"puke-debug.pukePointFormats": {
+					"type":"object",
+					"default": {
+						"shellscript": "echo \"PUKE-POINT: filename: %filename%, line: %line%\"",
+						"c": "printf(\"PUKE: filename: %filename%, line: %line%\");",
+						"cpp": "std::cout \"PUKE: filename: %filename%, line: %line%\" << std::endl;",
+						"csharp": "Console.WriteLine(\"PUKE: filename: %filename%, line: %line%\");",
+						"go": "fmt.Println('PUKE: filename: %filename%, line: %line%')",
+						"java": "System.out.println(\"PUKE: filename: %filename%, line: %line%\");",
+						"javascript": "console.log('PUKE: filename: %filename%, line: %line%');",
+						"makefile": "echo \"PUKE-POINT: filename: %filename%, line: %line%\"",
+						"php": "echo \"PUKE-POINT: filename: %filename%, line: %line%\";",
+						"python": "print('PUKE: filename: %filename%, line: %line%')",
+						"rust": "dbg!(\"'PUKE: filename: %filename%, line: %line%'\");",
+						"scala": "println(\"PUKE-POINT: filename: %filename%, line: %line%\")",
+						"typescript": "console.log('PUKE: filename: %filename%, line: %line%');"
+					},
+					"description": "Puke-Point format. Use %line% and %filename% as tags for debug info.\nA list of language tags is available here: https://code.visualstudio.com/docs/languages/identifiers"
 				},
 				"puke-debug.commentOpening": {
 					"type": "string",
