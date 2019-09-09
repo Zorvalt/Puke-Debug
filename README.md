@@ -63,7 +63,7 @@ No currently known issue. Feel free to signal it if you find one! :-)
 
 ## Realease Notes
 
-## [0.1.0](https://github.com/Zorvalt/Puke-Debug/releases/tag/v0.1.0)
+## [0.1.1](https://github.com/Zorvalt/Puke-Debug/releases/tag/v0.1.1)
 Better implementation and tested (by hand, for now) in different scenarios.  
 Added commands :
 * Settings for configuration
