@@ -30,6 +30,20 @@ function indentationOfLine(document: vscode.TextDocument, line: number): string 
 	return currntLine.text.substr(0, currntLine.firstNonWhitespaceCharacterIndex);
 }
 
+function insertPukePoint(editor: vscode.TextEditor) {
+	const filename = currentFileName(editor.document);
+
+	editor.edit(function (editBuilder: vscode.TextEditorEdit) {
+		// Inserts a puke point for each cursor(selection)
+		for (let selection of editor.selections) {
+			const indentation = indentationOfLine(editor.document, selection.active.line);
+			const position = new vscode.Position(selection.active.line + 1, 0);
+			const lineDisplayed = position.line + 1;
+			editBuilder.insert(position, indentation + make_puke_point(filename, lineDisplayed.toString()));
+		}
+	}).then(() => updatePukePoints(editor));
+}
+
 function updatePukePoints(editor: vscode.TextEditor) {
 	const text = editor.document.getText();
 	// Matches all lines ending with the puke-point comment
@@ -37,6 +51,7 @@ function updatePukePoints(editor: vscode.TextEditor) {
 
 	let match;
 	editor.edit(function(editBuilder: vscode.TextEditorEdit) {
+		// Replaces each line containing a puke point with a new one
 		while(match = regex.exec(text)) {
 			const position = editor.document.positionAt(match.index);
 			const beginOffset = editor.document.lineAt(position.line).firstNonWhitespaceCharacterIndex;
@@ -49,50 +64,47 @@ function updatePukePoints(editor: vscode.TextEditor) {
 	});
 }
 
+function clearPukePoints(editor: vscode.TextEditor) {
+	const text = editor.document.getText();
+	// Matches all lines ending with the puke-point comment
+	const regex = new RegExp(escapeRegExp(make_comment()) + '$', 'gm');
+
+	let match;
+	editor.edit(function(editBuilder: vscode.TextEditorEdit) {
+		// Deletes each line containing a puke point
+		while(match = regex.exec(text)) {
+			const position = editor.document.positionAt(match.index);
+			const begin = new vscode.Position(position.line, 0);
+			const end = new vscode.Position(position.line+1, 0);
+			editBuilder.delete(new vscode.Range(begin, end));
+		}
+	});
+}
+
+// Commands registration
 export function activate(context: vscode.ExtensionContext) {
 	let disposable1 = vscode.commands.registerCommand('pukeDebug.insertPukePoint', () => {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
-			const filename = currentFileName(editor.document);
-
-			editor.edit(function (editBuilder: vscode.TextEditorEdit) {
-				for (let selection of editor.selections) {
-					const indentation = indentationOfLine(editor.document, selection.active.line);
-					const position = new vscode.Position(selection.active.line + 1, 0);
-					const lineDisplayed = position.line + 1;
-					editBuilder.insert(position, indentation + make_puke_point(filename, lineDisplayed.toString()));
-				}
-			}).then(() => updatePukePoints(editor));
+			insertPukePoint(editor);
 		}
 	});
-
 	context.subscriptions.push(disposable1);
 
 
 	let disposable2 = vscode.commands.registerCommand('pukeDebug.clearPukePoints', () => {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
-			const text = editor.document.getText();
-			// Matches all lines ending with the puke-point comment
-			const regex = new RegExp(escapeRegExp(make_comment()) + '$', 'gm');
-
-			let match;
-			editor.edit(function(editBuilder: vscode.TextEditorEdit) {
-				while(match = regex.exec(text)) {
-					const position = editor.document.positionAt(match.index);
-					const begin = new vscode.Position(position.line, 0);
-					const end = new vscode.Position(position.line+1, 0);
-					editBuilder.delete(new vscode.Range(begin, end));
-				}
-			});
+			clearPukePoints(editor);
 		}
 	});
-
 	context.subscriptions.push(disposable2);
 
 	let disposable3 = vscode.commands.registerCommand('pukeDebug.updatePukePoints', () => {
 		const editor = vscode.window.activeTextEditor;
-		if (editor) { updatePukePoints(editor); }
+		if (editor) {
+			updatePukePoints(editor);
+		}
 	});
 	context.subscriptions.push(disposable3);
 
@@ -102,10 +114,6 @@ export function activate(context: vscode.ExtensionContext) {
 			updatePukePoints(editor);
 		}
 	});
-
-	// TODO Add commands to enable/disable/toggle debug lines
-
-	// TODO Update all the commands to handle a selected range
 }
 
 // this method is called when your extension is deactivated
