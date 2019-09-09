@@ -58,6 +58,13 @@
 				"command": "pukeDebug.updatePukePoints",
 				"title": "Updates all puke-points in current file"
 			}
+		],
+		"keybindings": [
+			{
+				"command": "pukeDebug.insertPukePoint",
+				"key": "ctrl+insert",
+				"mac": "cmd+insert"
+			}
 		]
 	},
 	"scripts": {
