@@ -25,6 +25,11 @@ function currentFileName(document: vscode.TextDocument): string {
 	return filename;
 }
 
+function indentationOfLine(document: vscode.TextDocument, line: number): string {
+	const currntLine = document.lineAt(line);
+	return currntLine.text.substr(0, currntLine.firstNonWhitespaceCharacterIndex);
+}
+
 function updatePukePoints(editor: vscode.TextEditor) {
 	const text = editor.document.getText();
 	// Matches all lines ending with the puke-point comment
@@ -34,7 +39,8 @@ function updatePukePoints(editor: vscode.TextEditor) {
 	editor.edit(function(editBuilder: vscode.TextEditorEdit) {
 		while(match = regex.exec(text)) {
 			const position = editor.document.positionAt(match.index);
-			const begin = new vscode.Position(position.line, 0);
+			const beginOffset = editor.document.lineAt(position.line).firstNonWhitespaceCharacterIndex;
+			const begin = new vscode.Position(position.line, beginOffset);
 			const end = new vscode.Position(position.line + 1, 0);
 			const filename = currentFileName(editor.document);
 			const line = (begin.line+1).toString();
@@ -53,9 +59,10 @@ export function activate(context: vscode.ExtensionContext) {
 
 			editor.edit(function (editBuilder: vscode.TextEditorEdit) {
 				for (let selection of editor.selections) {
+					const indentation = indentationOfLine(editor.document, selection.active.line);
 					const position = new vscode.Position(selection.active.line + 1, 0);
-					const line = position.line + 1;
-					editBuilder.insert(position, make_puke_point(filename, line.toString()));
+					const lineDisplayed = position.line + 1;
+					editBuilder.insert(position, indentation + make_puke_point(filename, lineDisplayed.toString()));
 				}
 			}).then(() => updatePukePoints(editor));
 		}
