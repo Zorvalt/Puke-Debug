@@ -29,15 +29,14 @@ ONLY in those cases should you use this extension ! It is ***NOT*** a good way t
 
 ## Features
 * Auto-recompute line numbers on save
-* Use your own format with %filename% and %line% tags
+* Compatible with any language
+  * Use your own format with %filename% and %line% tags
+  * Choose the comment format
 
 ### Current commands:
 * Insert new puke point (shorcut: `ctrl + insert`)
 * Clear all puke points in the current file
 * Re-compute the line numbers
-
-### Planned commands:
-* Toggle (enable/disable) puke points
 
 ### Planned features:
 * If some code is selected, the commands only impact the selection
@@ -64,7 +63,7 @@ No currently known issue. Feel free to signal it if you find one! :-)
 
 ## Realease Notes
 
-## 0.1.0 (upcoming)
+## [0.1.0](https://github.com/Zorvalt/Puke-Debug/releases/tag/v0.1.0)
 Better implementation and tested (by hand, for now) in different scenarios.  
 Added commands :
 * Settings for configuration
@@ -74,7 +73,7 @@ Added commands :
 * Handles multiple cursors
 * Respects indentation
 
-## 0.0.1
+## [0.0.1](https://github.com/Zorvalt/Puke-Debug/releases/tag/v0.0.1)
 Implements working quickly coded first commands :
 * Insert new puke point
 * Clear all puke points in the current file
