@@ -11,8 +11,6 @@ fmt.Println('PUKE: my_var = bar') // PKDBG/Exposure
 doThat()
 fmt.Println('PUKE: => 2 <=') // PKDBG/Sequence
 fmt.Println('PUKE: my_var = foobar') // PKDBG/Exposure
-
-...
 ```
 instead of
 ```go
@@ -21,7 +19,6 @@ doThis()
 print('2')
 doThat()
 print('3')
-...
 ```
 
 ## Experimental, use at your own risks
@@ -48,7 +45,7 @@ There are three types of output :
   * Ther variable exposures are print outputs that display a variable name and value. It is not meant as a debugger replacement and is as simple as possible. Not nice formating or whatsoever. You can still add it yourself in the settings, though.
 
 ### Typical usage
-When you use the insert command: `ctrl + alt + p` (`ctrl + cmd + p` on mac)
+When you use the insert command: `ctrl + alt + p` (`ctrl + cmd + p` on mac).  
 It will add a puke-point in your code, rigth after the current line.  
 Before:
 ```javascript
@@ -85,7 +82,7 @@ To change mode, press the command `ctrl + alt + shift + p` (`ctrl + cmd + shift 
 * `s` for Sequences
 
 ### Configuration
-You can change all the outputs and specify different behavoirs for different file types. See the "Extension Settings" section for details.
+You can change all the outputs and specify different behavoirs for different file types. See the [Extension Settings](#extension-settings) section for details.
 
 ## Features
 * Insert
