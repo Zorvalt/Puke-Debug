@@ -14,7 +14,7 @@ export class Exposure {
         }
 
         const output = exposureFormat.replace(/%name%/g, selection);
-        return utils.outputFormat(languageID).replace('%output%', output) + Exposure.make_comment() + '\n';
+        return utils.outputFormat(languageID).replace('%output%', output) + ' ' + Exposure.make_comment() + '\n';
     }
 
     public static insert(editor: vscode.TextEditor) {
