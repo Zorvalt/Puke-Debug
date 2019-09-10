@@ -59,7 +59,7 @@ ONLY in those cases should you use this extension ! It is ***NOT*** a good way t
 
 ### Current commands:
 * Repeat last puke output [Puke-Point or Sequence] (default shorcut: `ctrl + alt + p` / Mac: `ctrl + cmd + p`)
-* Puke-Points
+* Puke-Point
   * Insert new point
   * Clear all puke points in the current file
   * Update: Re-compute the line numbers
@@ -70,8 +70,35 @@ ONLY in those cases should you use this extension ! It is ***NOT*** a good way t
   * Insert name and value of selected variable
 
 ## Extension Settings
-* Puke Point Format: The default Puke-Point format with quotes. Use %line% and %filename% as tags for debug info.
-  * Example: `"PUKE-POINT: filename: %filename%, line: %line%"`
+* Puke Point Format: The Puke-Point format with quotes. Use %line% and %filename% as tags for debug info.
+  * Example: `"PUKE: filename: %filename%, line: %line%"`
+
+* Sequence Format: The Sequence format with quotes. Use %seq_number% as tag for debug info.
+  * Example: `"PUKE: => %seq_number% <="`
+
+* Default variable exposure Format: The default variable exposure format with quotes. Use %name% as tag for debug info.
+  * Example: `"PUKE: %name% = \" + %name%`
+
+* Variable exposure Formats: Variable exposure format by filetype. Same format as above.
+  * Languange identifiers can be found here: https://code.visualstudio.com/docs/languages/identifiers
+  * Example:
+  ```json
+  {
+    "shellscript": "\"%name% = ${%name%}\"",
+    "c": "\"%name% = %s\", %name%",
+    "cpp": "\"%name% = \" << %name%",
+    "csharp": "\"%name% = \" + %name%",
+    "go": "\"%name% = \", %name%",
+    "java": "\"%name% = \" + %name%.toString()",
+    "javascript": "\"%name% = \" + %name%",
+    "makefile": "\"%name% = $%name%\"",
+    "php": "\"%name% = \" . %name%",
+    "python": "\"%name% = \" + str(%name%)",
+    "rust": "\"%name% =  {:?}\", %name%",
+    "scala": "\"%name% = \" + %name%.toString()",
+    "typescript": "\"%name% = \" + %name%"
+  }
+  ```
 
 * Default Output Format: The default output format. Use %output% as tag for debug info.
   * Example: `"print(%output%)"`
@@ -81,19 +108,19 @@ ONLY in those cases should you use this extension ! It is ***NOT*** a good way t
   * Example:
   ```json
   {
-    "shellscript": "echo \"PUKE-POINT: filename: %filename%, line: %line%\"",
-    "c": "printf(\"PUKE: filename: %filename%, line: %line%\");",
-    "cpp": "std::cout \"PUKE: filename: %filename%, line: %line%\" << std::endl;",
-    "csharp": "Console.WriteLine(\"PUKE: filename: %filename%, line: %line%\");",
-    "go": "fmt.Println('PUKE: filename: %filename%, line: %line%')",
-    "java": "System.out.println(\"PUKE: filename: %filename%, line: %line%\");",
-    "javascript": "console.log('PUKE: filename: %filename%, line: %line%');",
-    "makefile": "echo \"PUKE-POINT: filename: %filename%, line: %line%\"",
-    "php": "echo \"PUKE-POINT: filename: %filename%, line: %line%\";",
-    "python": "print('PUKE: filename: %filename%, line: %line%')",
-    "rust": "dbg!(\"'PUKE: filename: %filename%, line: %line%'\");",
-    "scala": "println(\"PUKE-POINT: filename: %filename%, line: %line%\")",
-    "typescript": "console.log('PUKE: filename: %filename%, line: %line%');"
+    "shellscript": "echo %output%",
+    "c": "printf(%output%);",
+    "cpp": "std::cout << %output% << std::endl;",
+    "csharp": "Console.WriteLine(%output%);",
+    "go": "fmt.Println(%output%)",
+    "java": "System.out.println(%output%);",
+    "javascript": "console.log(%output%);",
+    "makefile": "echo %output%",
+    "php": "echo %output%;",
+    "python": "print(%output%)",
+    "rust": "dbg!(%output%);",
+    "scala": "println(%output%)",
+    "typescript": "console.log(%output%);"
   }
   ```
 

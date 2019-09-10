@@ -44,7 +44,7 @@
 				},
 				"puke-debug.defaultExposureFormat": {
 					"type": "string",
-					"default": "\"%name% = \" + %name%",
+					"default": "\"PUKE: %name% = \" + %name%",
 					"description": "Default output format when no file type matche. Use %output% as a tag for the output."
 				},
 				"puke-debug.exposureFormats": {
