@@ -29,4 +29,21 @@ export class Exposure {
             );
         });
     }
+
+    public static clearAll(editor: vscode.TextEditor) {
+        const text = editor.document.getText();
+        // Matches all lines ending with the puke-point comment
+        const regex = new RegExp(utils.escapeRegExp(Exposure.make_comment()) + '$', 'gm');
+    
+        let match;
+        editor.edit(function(editBuilder: vscode.TextEditorEdit) {
+            // Deletes each line containing a puke point
+            while(match = regex.exec(text)) {
+                const position = editor.document.positionAt(match.index);
+                const begin = new vscode.Position(position.line, 0);
+                const end = new vscode.Position(position.line+1, 0);
+                editBuilder.delete(new vscode.Range(begin, end));
+            }
+        });
+    }
 }

@@ -140,6 +140,10 @@
 			{
 				"command": "pukeDebug.insertExposure",
 				"title": "Insert variable exposure"
+			},
+			{
+				"command": "pukeDebug.clearExposure",
+				"title": "Clears all variable exposure"
 			}
 		],
 		"keybindings": [

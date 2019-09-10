@@ -46,7 +46,6 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable2 = vscode.commands.registerCommand('pukeDebug.clearPukePoints', () => {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
-			mode = Mode.PukePoint;
 			PukePoints.clearAll(editor);
 		}
 	});
@@ -90,7 +89,6 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable6 = vscode.commands.registerCommand('pukeDebug.clearSequence', () => {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
-			mode = Mode.Sequence;
 			sequence.clearAll(editor);
 		}
 	});
@@ -103,6 +101,14 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 	context.subscriptions.push(disposable7);
+
+	let disposable8 = vscode.commands.registerCommand('pukeDebug.clearExposure', () => {
+		const editor = vscode.window.activeTextEditor;
+		if (editor) {
+			Exposure.clearAll(editor);
+		}
+	});
+	context.subscriptions.push(disposable8);
 }
 
 // this method is called when your extension is deactivated
