@@ -33,6 +33,8 @@ export class PukePoints {
     
     public static updateAll(editor: vscode.TextEditor) {
         const text = editor.document.getText();
+        const filename = utils.currentFileName(editor.document);
+        
         // Matches all lines ending with the puke-point comment
         const regex = new RegExp(utils.escapeRegExp(PukePoints.make_comment()) + '$', 'gm');
     
@@ -41,15 +43,16 @@ export class PukePoints {
             // Replaces each line containing a puke point with a new one
             while(match = regex.exec(text)) {
                 const position = editor.document.positionAt(match.index);
-                const beginOffset = editor.document.lineAt(position.line).firstNonWhitespaceCharacterIndex;
-                const begin = new vscode.Position(position.line, beginOffset);
+                const currentLine = editor.document.lineAt(position.line);
+                const begin = new vscode.Position(position.line, currentLine.firstNonWhitespaceCharacterIndex);
                 const end = new vscode.Position(position.line + 1, 0);
-                const filename = utils.currentFileName(editor.document);
+                
                 const line = (begin.line+1).toString();
-                editBuilder.replace(
-                    new vscode.Range(begin, end),
-                    PukePoints.make_puke_point(filename, line, editor.document.languageId)
-                );
+                const puke_point = PukePoints.make_puke_point(filename, line, editor.document.languageId);
+
+                if(currentLine.text.trim() !== puke_point.trim()) {
+                    editBuilder.replace(new vscode.Range(begin, end), puke_point);
+                }
             }
         });
     }
