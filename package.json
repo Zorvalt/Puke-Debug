@@ -50,7 +50,7 @@
 				"puke-debug.exposureFormats": {
 					"type":"object",
 					"default": {
-						"shellscript": "\"%name% = $%name%\"",
+						"shellscript": "\"%name% = ${%name%}\"",
 						"c": "\"%name% = %s\", %name%",
 						"cpp": "\"%name% = \" << %name%",
 						"csharp": "\"%name% = \" + %name%",
