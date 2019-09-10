@@ -2,6 +2,10 @@ import * as vscode from 'vscode';
 import * as utils from './utils';
 
 export class Exposure {
+    private static make_comment(): string {
+        return utils.make_comment() + '/Exposure';
+    }
+
     private static make_exposure(selection: string, languageID: string): string {
         const conf = vscode.workspace.getConfiguration('puke-debug');
         let exposureFormat : string = conf.defaultExposureFormat;
@@ -10,7 +14,7 @@ export class Exposure {
         }
 
         const output = exposureFormat.replace(/%name%/g, selection);
-        return utils.outputFormat(languageID).replace('%output%', output) + '\n';
+        return utils.outputFormat(languageID).replace('%output%', output) + Exposure.make_comment() + '\n';
     }
 
     public static insert(editor: vscode.TextEditor) {
