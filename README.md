@@ -1,21 +1,21 @@
 # Puke-Debug
 A VS Code extension that inserts emetic debug lines where you need them. Last resort option in debugging... The inserted debug outputs (puke points) contain the line number and the name of the file.  
-This extension allows you to easily add thos horrible debug lines like:
-```
+This extension allows you to easily add those horrible debug lines like:
+```go
 fmt.Println('PUKE: filename: /README.md, line: 5') // PKDBG/Point
 fmt.Println('PUKE: => 0 <=') // PKDBG/Sequence
-fmt.Println('PUKE: my_var = foo') // PKDBG
+fmt.Println('PUKE: my_var = foo') // PKDBG/Exposure
 doThis()
 fmt.Println('PUKE: => 1 <=') // PKDBG/Sequence
-fmt.Println('PUKE: my_var = bar') // PKDBG
+fmt.Println('PUKE: my_var = bar') // PKDBG/Exposure
 doThat()
 fmt.Println('PUKE: => 2 <=') // PKDBG/Sequence
-fmt.Println('PUKE: my_var = foobar') // PKDBG
+fmt.Println('PUKE: my_var = foobar') // PKDBG/Exposure
 
 ...
 ```
 instead of
-```
+```go
 print('1')
 doThis()
 print('2')
@@ -30,7 +30,62 @@ This is my first extension! It *seems to work* but I cannot guarantee anything.
 
 ## Why!?!?!?!?!
 Because sometimes... In some very specific contexts... You cannot use a debugger...  
-ONLY in those cases should you use this extension ! It is ***NOT*** a good way to debug!!!!!!!
+ONLY in those cases should you use this extension ! It is ***NOT*** a good way to debug!!!!!!!  
+A debugger allows you to inspect memory, create conditional breakpoints, test the real behavior and a lot more.
+This extension is only here to help for very quick and easy problem to fix or when you have no other tool.  
+If despite this warning, you still want to use my extension. Well.. Thank you and have fun! :-)
+
+## Quick start
+### Basics
+There are three types of output :
+* Puke-Points
+  * The Puke-Points are simply print outputs that you can insert anywhere to check if your code runs it.
+  You can format them to add filename and line number.
+* Sequences
+  * The sequences are print outputs with a counter that increments after each print.
+  Use it to control the flow easily with little verbosity.
+* Variable exposures
+  * Ther variable exposures are print outputs that display a variable name and value. It is not meant as a debugger replacement and is as simple as possible. Not nice formating or whatsoever. You can still add it yourself in the settings, though.
+
+### Typical usage
+When you use the insert command: `ctrl + alt + p` (`ctrl + cmd + p` on mac)
+It will add a puke-point in your code, rigth after the current line.  
+Before:
+```javascript
+let x = getTheCurrentValueOfMyComponentAbstractedFromAnInterfaceFactory();
+```
+After:
+```javascript
+let x = getTheCurrentValueOfMyComponentAbstractedFromAnInterfaceFactory();
+console.log('PUKE: filename: /src/myFile.js, line: 2') // PKDBG/Point
+```
+If you select x (with your cursor) before running the command, you will obtain this:
+```javascript
+let x = getTheCurrentValueOfMyComponentAbstractedFromAnInterfaceFactory();
+console.log('PUKE: x = ' + x) // PKDBG/Exposure
+```
+And finally, if you switch to sequence mode (see how in next section):
+```javascript
+let x = getTheCurrentValueOfMyComponentAbstractedFromAnInterfaceFactory();
+console.log('PUKE: => 0 <=') // PKDBG/Sequence
+```
+When you changed mode, all subsequent inserts will stay in the same mode. Therefor, the next insert will give:
+```javascript
+let x = getTheCurrentValueOfMyComponentAbstractedFromAnInterfaceFactory();
+console.log('PUKE: => 0 <=') // PKDBG/Sequence
+...
+...
+console.log('PUKE: => 1 <=') // PKDBG/Sequence
+```
+
+### Changing mode
+There are two modes: Puke-Points and Sequence. Variable exposures are inserted in both modes when text is selected.
+To change mode, press the command `ctrl + alt + shift + p` (`ctrl + cmd + shift + p` on mac) and then the key for the mode you want to switch to :
+* `p` for Puke-Points
+* `s` for Sequences
+
+### Configuration
+You can change all the outputs and specify different behavoirs for different file types. See the "Extension Settings" section for details.
 
 ## Features
 * Insert
@@ -66,7 +121,7 @@ ONLY in those cases should you use this extension ! It is ***NOT*** a good way t
 * Sequence
   * Insert new sequence (reset counter)
   * Insert next value in sequence
-* Variable exposure
+* Variable Exposure
   * Insert name and value of selected variable
 
 ## Extension Settings
@@ -76,7 +131,7 @@ ONLY in those cases should you use this extension ! It is ***NOT*** a good way t
 * Sequence Format: The Sequence format with quotes. Use %seq_number% as tag for debug info.
   * Example: `"PUKE: => %seq_number% <="`
 
-* Default variable exposure Format: The default variable exposure format with quotes. Use %name% as tag for debug info.
+* Default Variable Exposure Format: The default variable exposure format with quotes. Use %name% as tag for debug info.
   * Example: `"PUKE: %name% = \" + %name%`
 
 * Variable exposure Formats: Variable exposure format by filetype. Same format as above.
@@ -138,7 +193,7 @@ ONLY in those cases should you use this extension ! It is ***NOT*** a good way t
 ## Known Issues
 No currently known issue. Feel free to signal it with an issue if you find one! :-)
 
-## Realease Notes
+## Release Notes
 
 ## [0.3.0](https://github.com/Zorvalt/Puke-Debug/releases/tag/v0.3.0)
 Added support for:
