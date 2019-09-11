@@ -10,6 +10,7 @@ export abstract class AbstractPukeControler {
         this.commentSubTag = commentSubTag;
         this.pukeFormatKey = pukeFormatKey;
     }
+
     /**
      * Builds the comment string at the end of a puke
      * @returns string A comment string with opening and closing tags
@@ -19,6 +20,7 @@ export abstract class AbstractPukeControler {
         const optionalClosing = (' ' + conf.commentClosing).trimRight();
         return `${conf.commentOpening} ${conf.commentTAG}/${this.commentSubTag}` + optionalClosing;
     }
+
     /**
      * Fetches the puke format from the settings based on the pukeFormatKey given in constructor and the language
      * identifier given in parameter
@@ -35,6 +37,7 @@ export abstract class AbstractPukeControler {
             throw new Error('Wrong setting key in this.pukeFormatKEy');
         }
     }
+
     /**
      * Fetches the print statement format from the settings based on the given language identifier
      * @param  {string} languageID The document's language identifier
@@ -48,6 +51,7 @@ export abstract class AbstractPukeControler {
         }
         return outputFormat;
     }
+
     /**
      * Builds the complete puke statemen with comment based on the pukeFormatKey given in constructor and the language
      * identifier given in parameter
@@ -60,6 +64,7 @@ export abstract class AbstractPukeControler {
         const comment = this.makeComment();
         return `${printStatement} ${comment}`;
     }
+
     /**
      * Hook for child class to override
      * This hook is execuded ONCE before a batch of inserts. It can be used to format a puke with a parameter that
@@ -70,7 +75,6 @@ export abstract class AbstractPukeControler {
      */
     protected hookBeforeAllInsert(editor: vscode.TextEditor, puke: string): string { return puke; }
 
-    
     /**
      * Hook for child class to override
      * This hook is execuded before EACH insert. It can be used to format a puke with a parameter that depends on the line
