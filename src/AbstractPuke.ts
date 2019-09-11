@@ -67,7 +67,7 @@ export abstract class AbstractPukeControler {
         let self = this;
         
         // Matches all lines ending with the puke-point comment
-        const regex = new RegExp(utils.escapeRegExp(this.makeComment()) + '$', 'gm');
+        const regex = new RegExp(utils.escapeRegExp(this.makeComment()) + '\\s*$', 'gm');
     
         editor.edit(function(editBuilder: vscode.TextEditorEdit) {
             // Replaces each line containing a puke point with a new one
@@ -89,7 +89,7 @@ export abstract class AbstractPukeControler {
     public clearAll(editor: vscode.TextEditor) {
         const text = editor.document.getText();
         // Matches all lines ending with the puke-point comment
-        const regex = new RegExp(utils.escapeRegExp(this.makeComment()) + '$', 'gm');
+        const regex = new RegExp(utils.escapeRegExp(this.makeComment()) + '\\s*$', 'gm');
     
         editor.edit(function(editBuilder: vscode.TextEditorEdit) {
             // Deletes each line containing a puke point
