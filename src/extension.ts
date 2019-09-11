@@ -31,7 +31,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		switch(mode) {
 			case Mode.PukePoint:
-			pukePointControler.insert(editor);
+			pukePointControler.insert(editor).then(()=>pukePointControler.updateAll(editor));
 			break;
 
 			case Mode.Sequence:
