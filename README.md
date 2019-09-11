@@ -191,39 +191,4 @@ You can change all the outputs and specify different behavoirs for different fil
 No currently known issue. Feel free to signal it with an issue if you find one! :-)
 
 ## Release Notes
-
-## [0.3.0](https://github.com/Zorvalt/Puke-Debug/releases/tag/v0.3.0)
-Added support for:
-* sequence prints. Each print increments a displayed counter
-* variable exposure. Displays the selected variable in the format : 'name = value'
-
-## [0.2.0](https://github.com/Zorvalt/Puke-Debug/releases/tag/v0.2.0)
-Added support with default puke-point format for multiple languages:
-* shellscript
-* c
-* cpp
-* csharp
-* go
-* java
-* javascript
-* makefile
-* php
-* python
-* rust
-* scala
-* typescript
-
-## [0.1.1](https://github.com/Zorvalt/Puke-Debug/releases/tag/v0.1.1)
-Better implementation and tested (by hand, for now) in different scenarios.  
-Added commands :
-* Settings for configuration
-* Shortcurt for inserting
-* Update all lines
-* Auto-update on save
-* Handles multiple cursors
-* Respects indentation
-
-## [0.0.1](https://github.com/Zorvalt/Puke-Debug/releases/tag/v0.0.1)
-Implements working quickly coded first commands :
-* Insert new puke point
-* Clear all puke points in the current file
+See the [CHANGELOG](https://github.com/Zorvalt/Puke-Debug/blob/master/CHANGELOG.md)
