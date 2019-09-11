@@ -4,7 +4,7 @@ import { AbstractPukeControler } from './AbstractPuke';
 
 export class Exposure extends AbstractPukeControler {
     constructor() {
-        super('/Exposure', '');
+        super('Exposure', '');
     }
 
     protected hookBeforeEachInsert(editor: vscode.TextEditor, selectedLine: vscode.TextLine, puke: string): string {

@@ -5,7 +5,7 @@ export class Sequence extends AbstractPukeControler {
     private seqNumber = 0;
 
     constructor() {
-        super('/Sequence', 'sequenceFormat');
+        super('Sequence', 'sequenceFormat');
     }
 
     protected hookBeforeEachInsert(editor: vscode.TextEditor, selectedLine: vscode.TextLine, puke: string): string {

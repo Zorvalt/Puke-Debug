@@ -3,7 +3,7 @@ import { AbstractPukeControler } from './AbstractPuke';
 
 export class PukePoints extends AbstractPukeControler {
     constructor() {
-        super('/Point', 'pukePointFormat');
+        super('Point', 'pukePointFormat');
     }
 
     protected hookBeforeAllInsert(editor: vscode.TextEditor, puke: string): string {
