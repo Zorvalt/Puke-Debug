@@ -1,8 +1,5 @@
 # Change Log
 
-## [Unreleased]
-Nothing yet
-
 ## [0.3.0](https://github.com/Zorvalt/Puke-Debug/releases/tag/v0.3.0)
 Added support for:
 * Sequence prints. Each print increments a displayed counter
