@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { PukePoints } from './PukePoint';
-import { Sequence } from './Sequence';
-import { Exposure } from './exposure';
+import { PukePointEditor } from './PukePointEditor';
+import { Sequence } from './SequenceEditor';
+import { ExposureEditor } from './ExposureEditor';
 
 enum Mode {
 	PukePoint,
@@ -20,8 +20,8 @@ function registerWithEditor(commandName: string, command: (editor: vscode.TextEd
 // Commands registration
 export function activate(context: vscode.ExtensionContext) {
 	let sequence = new Sequence();
-	let pukePointControler = new PukePoints();
-	let exposureControler = new Exposure();
+	let pukePointControler = new PukePointEditor();
+	let exposureControler = new ExposureEditor();
 	let mode = Mode.PukePoint;
 
 	let command0 = registerWithEditor('pukeDebug.insert', (editor) => {

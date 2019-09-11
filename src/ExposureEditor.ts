@@ -1,8 +1,7 @@
 import * as vscode from 'vscode';
-import * as utils from './utils';
-import { AbstractPukeControler } from './AbstractPuke';
+import { AbstractPukeControler } from './AbstractPukeEditor';
 
-export class Exposure extends AbstractPukeControler {
+export class ExposureEditor extends AbstractPukeControler {
     constructor() {
         super('Exposure', '');
     }
