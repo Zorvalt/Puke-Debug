@@ -16,6 +16,6 @@ export class PukePoints extends AbstractPukeControler {
     }
 
     protected hookBeforeEachInsert(editor: vscode.TextEditor, selectedLine: vscode.TextLine, puke: string): string {
-        return puke.replace('%line%', (selectedLine.lineNumber+2).toString());
+        return puke.replace('%line%', (selectedLine.lineNumber+1).toString());
     }
 }
