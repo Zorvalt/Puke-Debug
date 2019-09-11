@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import * as utils from './utils';
+import { runInThisContext } from 'vm';
 
 export abstract class AbstractPukeControler {
     protected commentSubTag: string;
@@ -16,7 +17,7 @@ export abstract class AbstractPukeControler {
         return `${conf.commentOpening} ${conf.commentTAG}/${this.commentSubTag}` + optionalClosing;
     }
 
-    protected getFormat(languageID: string): string {
+    protected getPukeFormat(languageID: string): string {
         const conf = vscode.workspace.getConfiguration('puke-debug');
 
         if (conf.hasOwnProperty(this.pukeformat)) {
@@ -27,9 +28,19 @@ export abstract class AbstractPukeControler {
         }
     }
 
+    protected getOutputFormat(languageID: string): string {
+        const conf = vscode.workspace.getConfiguration('puke-debug');
+        let outputFormat = conf.defaultOutputFormat;
+        if (languageID !== "" && conf.outputFormats.hasOwnProperty(languageID)) {
+            outputFormat = conf.outputFormats[languageID];
+        }
+        return outputFormat;
+    }
+
     protected makePuke(languageID: string): string {
-        const comment = ` ${this.makeComment()}\n`;
-        return AbstractPukeControler.outputFormat(languageID).replace('%output%', this.getFormat(languageID)) + comment;
+        const printStatement = this.getOutputFormat(languageID).replace('%output%', this.getPukeFormat(languageID));
+        const comment = this.makeComment();
+        return `${printStatement} ${comment}`;
     }
 
     protected hookBeforeAllInsert(editor: vscode.TextEditor, puke: string): string { return puke; }
@@ -42,10 +53,10 @@ export abstract class AbstractPukeControler {
             // Inserts a puke for each cursor(selection)
             for (let selection of editor.selections) {
                 const selectedLine = editor.document.lineAt(selection.active);
-                const position = new vscode.Position(selectedLine.lineNumber + 1, 0);
+                const position = new vscode.Position(selectedLine.lineNumber, selectedLine.range.end.character);
                 const indentation = selectedLine.text.substr(0, selectedLine.firstNonWhitespaceCharacterIndex);
                 const formatedPuke = self.hookBeforeEachInsert(editor, selectedLine, puke);
-                editBuilder.insert(position, indentation + formatedPuke);
+                editBuilder.insert(position, '\n' + indentation + formatedPuke);
             }
         });
     }
@@ -66,9 +77,9 @@ export abstract class AbstractPukeControler {
                 const selectedLine = editor.document.lineAt(position.line);
                 const formatedPuke = self.hookBeforeEachInsert(editor, selectedLine, puke);
 
-                if(selectedLine.text.trim() !== puke.trim()) {
+                if(selectedLine.text.trim() !== formatedPuke.trim()) {
                     const begin = new vscode.Position(position.line, selectedLine.firstNonWhitespaceCharacterIndex);
-                    const end = new vscode.Position(position.line + 1, 0);
+                    const end = new vscode.Position(position.line, selectedLine.range.end.character);
                     editBuilder.replace(new vscode.Range(begin, end), formatedPuke);
                 }
             }
@@ -90,14 +101,5 @@ export abstract class AbstractPukeControler {
                 editBuilder.delete(new vscode.Range(begin, end));
             }
         });
-    }
-
-    private static outputFormat(languageID: string): string {
-        const conf = vscode.workspace.getConfiguration('puke-debug');
-        let outputFormat = conf.defaultOutputFormat;
-        if (languageID !== "" && conf.outputFormats.hasOwnProperty(languageID)) {
-            outputFormat = conf.outputFormats[languageID];
-        }
-        return outputFormat;
     }
 }

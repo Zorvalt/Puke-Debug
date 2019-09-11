@@ -12,7 +12,7 @@ export class Exposure extends AbstractPukeControler {
         return puke.replace(/%name%/g, editor.document.getText(selection));
     }
 
-    protected getFormat(languageID: string): string {
+    protected getPukeFormat(languageID: string): string {
         const conf = vscode.workspace.getConfiguration('puke-debug');
         let exposureFormat : string = conf.defaultExposureFormat;
         if (languageID !== "" && conf.exposureFormats.hasOwnProperty(languageID)) {
