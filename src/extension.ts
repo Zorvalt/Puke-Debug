@@ -8,6 +8,15 @@ enum Mode {
 	Sequence
 }
 
+function registerWithEditor(commandName: string, command: (editor: vscode.TextEditor) => void): vscode.Disposable {
+	return vscode.commands.registerCommand(commandName, () => {
+		const editor = vscode.window.activeTextEditor;
+		if (editor){
+			command(editor);
+		}
+	});
+}
+
 // Commands registration
 export function activate(context: vscode.ExtensionContext) {
 	let sequence = new Sequence();
@@ -15,102 +24,67 @@ export function activate(context: vscode.ExtensionContext) {
 	let exposureControler = new Exposure();
 	let mode = Mode.PukePoint;
 
-	let disposable0 = vscode.commands.registerCommand('pukeDebug.insert', () => {
-		const editor = vscode.window.activeTextEditor;
-		if (editor){
-			if(editor.selection.isSingleLine && !editor.selection.isEmpty) {
-				exposureControler.insert(editor);
-			}
+	let command0 = registerWithEditor('pukeDebug.insert', (editor) => {
+		if(editor.selection.isSingleLine && !editor.selection.isEmpty) {
+			exposureControler.insert(editor);
+		}
 
-			switch(mode) {
-				case Mode.PukePoint:
-				pukePointControler.insert(editor);
-				break;
+		switch(mode) {
+			case Mode.PukePoint:
+			pukePointControler.insert(editor);
+			break;
 
-				case Mode.Sequence:
-				sequence.insert(editor);
-				break;
-			}
+			case Mode.Sequence:
+			sequence.insert(editor);
+			break;
 		}
 	});
-	context.subscriptions.push(disposable0);
+	context.subscriptions.push(command0);
 
-	let disposable1 = vscode.commands.registerCommand('pukeDebug.insertPukePoint', () => {
-		const editor = vscode.window.activeTextEditor;
-		if (editor) {
-			mode = Mode.PukePoint;
-			pukePointControler.insert(editor).then(()=>pukePointControler.updateAll(editor));
-		}
+	let command1 = registerWithEditor('pukeDebug.insertPukePoint', (editor) => {
+		mode = Mode.PukePoint;
+		pukePointControler.insert(editor).then(()=>pukePointControler.updateAll(editor));
 	});
-	context.subscriptions.push(disposable1);
+	context.subscriptions.push(command1);
 
 
-	let disposable2 = vscode.commands.registerCommand('pukeDebug.clearPukePoints', () => {
-		const editor = vscode.window.activeTextEditor;
-		if (editor) {
-			pukePointControler.clearAll(editor);
-		}
+	let command2 = registerWithEditor('pukeDebug.clearPukePoints', (editor) => pukePointControler.clearAll(editor));
+	context.subscriptions.push(command2);
+
+	let command3 = registerWithEditor('pukeDebug.updatePukePoints', (editor) => {
+		mode = Mode.PukePoint;
+		pukePointControler.updateAll(editor);
 	});
-	context.subscriptions.push(disposable2);
-
-	let disposable3 = vscode.commands.registerCommand('pukeDebug.updatePukePoints', () => {
-		const editor = vscode.window.activeTextEditor;
-		if (editor) {
-			mode = Mode.PukePoint;
-			pukePointControler.updateAll(editor);
-		}
-	});
-	context.subscriptions.push(disposable3);
+	context.subscriptions.push(command3);
 
 	vscode.workspace.onWillSaveTextDocument(() => {
 		const editor = vscode.window.activeTextEditor;
-		if (editor && mode === Mode.PukePoint && vscode.workspace.getConfiguration('puke-debug').updateOnSave) {
+		if (editor && vscode.workspace.getConfiguration('puke-debug').updateOnSave) {
 			pukePointControler.updateAll(editor);
 		}
 	});
 
-	let disposable4 = vscode.commands.registerCommand('pukeDebug.newSequence', () => {
-		const editor = vscode.window.activeTextEditor;
-		if (editor) {
-			mode = Mode.Sequence;
-			sequence.reset();
-			sequence.insert(editor);
-		}
+	let command4 = registerWithEditor('pukeDebug.newSequence', (editor) => {
+		mode = Mode.Sequence;
+		sequence.reset();
+		sequence.insert(editor);
 	});
-	context.subscriptions.push(disposable4);
+	context.subscriptions.push(command4);
 
-	let disposable5 = vscode.commands.registerCommand('pukeDebug.nextSequence', () => {
-		const editor = vscode.window.activeTextEditor;
-		if (editor) {
+	let command5 = registerWithEditor('pukeDebug.nextSequence', (editor) => {
 			mode = Mode.Sequence;
 			sequence.insert(editor);
-		}
 	});
-	context.subscriptions.push(disposable5);
+	context.subscriptions.push(command5);
 
-	let disposable6 = vscode.commands.registerCommand('pukeDebug.clearSequence', () => {
-		const editor = vscode.window.activeTextEditor;
-		if (editor) {
-			sequence.clearAll(editor);
-		}
-	});
-	context.subscriptions.push(disposable6);
+	let command6 = registerWithEditor('pukeDebug.clearSequence', (editor) => sequence.clearAll(editor));
+	context.subscriptions.push(command6);
 
-	let disposable7 = vscode.commands.registerCommand('pukeDebug.insertExposure', () => {
-		const editor = vscode.window.activeTextEditor;
-		if (editor && editor.selection.isSingleLine && !editor.selection.isEmpty) {
-			exposureControler.insert(editor);
-		}
-	});
-	context.subscriptions.push(disposable7);
+	let command7 = registerWithEditor('pukeDebug.insertExposure', (editor) => exposureControler.insert(editor));
+	context.subscriptions.push(command7);
 
-	let disposable8 = vscode.commands.registerCommand('pukeDebug.clearExposure', () => {
-		const editor = vscode.window.activeTextEditor;
-		if (editor) {
-			exposureControler.clearAll(editor);
-		}
-	});
-	context.subscriptions.push(disposable8);
+	let command8 = registerWithEditor('pukeDebug.clearExposure', (editor) => exposureControler.clearAll(editor));
+	context.subscriptions.push(command8);
 }
 
 // this method is called when your extension is deactivated
