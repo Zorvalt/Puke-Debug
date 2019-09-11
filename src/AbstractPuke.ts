@@ -61,7 +61,7 @@ export abstract class AbstractPukeControler {
         });
     }
 
-    public updateAll(editor: vscode.TextEditor) {
+    public updateAll(editor: vscode.TextEditor): Thenable<boolean> {
         const text = editor.document.getText();
         let puke = this.hookBeforeAllInsert(editor, this.makePuke(editor.document.languageId));
         let self = this;
@@ -69,7 +69,7 @@ export abstract class AbstractPukeControler {
         // Matches all lines ending with the puke-point comment
         const regex = new RegExp(utils.escapeRegExp(this.makeComment()) + '\\s*$', 'gm');
     
-        editor.edit(function(editBuilder: vscode.TextEditorEdit) {
+        return editor.edit(function(editBuilder: vscode.TextEditorEdit) {
             // Replaces each line containing a puke point with a new one
             let match;
             while(match = regex.exec(text)) {
@@ -86,12 +86,12 @@ export abstract class AbstractPukeControler {
         });
     }
 
-    public clearAll(editor: vscode.TextEditor) {
+    public clearAll(editor: vscode.TextEditor): Thenable<boolean> {
         const text = editor.document.getText();
         // Matches all lines ending with the puke-point comment
         const regex = new RegExp(utils.escapeRegExp(this.makeComment()) + '\\s*$', 'gm');
     
-        editor.edit(function(editBuilder: vscode.TextEditorEdit) {
+        return editor.edit(function(editBuilder: vscode.TextEditorEdit) {
             // Deletes each line containing a puke point
             let match;
             while(match = regex.exec(text)) {

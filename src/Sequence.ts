@@ -18,8 +18,8 @@ export class Sequence extends AbstractPukeControler {
         this.seqNumber = 0;
     }
 
-    public clearAll(editor: vscode.TextEditor) {
-        super.clearAll(editor);
+    public clearAll(editor: vscode.TextEditor): Thenable<boolean> {
         this.reset();
+        return super.clearAll(editor);
     }
 }
