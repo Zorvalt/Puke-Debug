@@ -20,6 +20,9 @@ print('2')
 doThat()
 print('3')
 ```
+## More than a snippet
+This extension keeps line numbers up to date when the file changes.
+The puke points are updated when a new one is added or on file change.
 
 ## Experimental, use at your own risks
 This is my first extension! It *seems to work* but I cannot guarantee anything.  
