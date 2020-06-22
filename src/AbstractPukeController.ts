@@ -1,12 +1,11 @@
 import * as vscode from 'vscode';
 import * as utils from './utils';
-import { runInThisContext } from 'vm';
 
-export abstract class AbstractPukeControler {
+export abstract class AbstractPukeController {
     protected commentSubTag: string;
     protected pukeFormatKey: string;
 
-    constructor(commentSubTag: string, pukeFormatKey: string) {
+    protected constructor(commentSubTag: string, pukeFormatKey: string) {
         this.commentSubTag = commentSubTag;
         this.pukeFormatKey = pukeFormatKey;
     }
@@ -24,7 +23,7 @@ export abstract class AbstractPukeControler {
     /**
      * Fetches the puke format from the settings based on the pukeFormatKey given in constructor and the language
      * identifier given in parameter
-     * If the pukeFormatKey/languageID does not match any setting, an exception is throwned
+     * If the pukeFormatKey/languageID does not match any setting, an exception is thrown
      * @param  {string} languageID The document's language identifier
      * @returns string A puke format string
      */
@@ -53,9 +52,9 @@ export abstract class AbstractPukeControler {
     }
 
     /**
-     * Builds the complete puke statemen with comment based on the pukeFormatKey given in constructor and the language
+     * Builds the complete puke statement with comment based on the pukeFormatKey given in constructor and the language
      * identifier given in parameter
-     * If the pukeFormatKey/languageID does not match any setting, an exception is throwned
+     * If the pukeFormatKey/languageID does not match any setting, an exception is thrown
      * @param  {string} languageID The document's language identifier
      * @returns string
      */
@@ -67,26 +66,26 @@ export abstract class AbstractPukeControler {
 
     /**
      * Hook for child class to override
-     * This hook is execuded ONCE before a batch of inserts. It can be used to format a puke with a parameter that
+     * This hook is executed ONCE before a batch of inserts. It can be used to format a puke with a parameter that
      * does not depend on the line
      * @param  {vscode.TextEditor} editor An instance of vscode.TextEditor
      * @param  {string} puke The puke string to format
-     * @returns string The formated puke string
+     * @returns string The formatted puke string
      */
     protected hookBeforeAllInsert(editor: vscode.TextEditor, puke: string): string { return puke; }
 
     /**
      * Hook for child class to override
-     * This hook is execuded before EACH insert. It can be used to format a puke with a parameter that depends on the line
+     * This hook is executed before EACH insert. It can be used to format a puke with a parameter that depends on the line
      * @param  {vscode.TextEditor} editor An instance of vscode.TextEditor
      * @param  {vscode.TextLine} selectedLine The line after which the puke will be inserted
      * @param  {string} puke The puke string to format
-     * @returns string The formated puke string
+     * @returns string The formatted puke string
      */
     protected hookBeforeEachInsert(editor: vscode.TextEditor, selectedLine: vscode.TextLine, puke: string): string { return puke; }
 
     /**
-     * Inserts a puke after each line with a cursor carret
+     * Inserts a puke after each line with a cursor caret
      * @param  {vscode.TextEditor} editor An instance of vscode.TextEditor
      * @returns Thenable A promise that resolves with a value indicating if the edits could be applied.
      */
@@ -99,8 +98,8 @@ export abstract class AbstractPukeControler {
                 const selectedLine = editor.document.lineAt(selection.active);
                 const position = new vscode.Position(selectedLine.lineNumber, selectedLine.range.end.character);
                 const indentation = selectedLine.text.substr(0, selectedLine.firstNonWhitespaceCharacterIndex);
-                const formatedPuke = self.hookBeforeEachInsert(editor, selectedLine, puke);
-                editBuilder.insert(position, '\n' + indentation + formatedPuke);
+                const formattedPuke = self.hookBeforeEachInsert(editor, selectedLine, puke);
+                editBuilder.insert(position, '\n' + indentation + formattedPuke);
             }
         });
     }
@@ -125,12 +124,12 @@ export abstract class AbstractPukeControler {
             while(match = regex.exec(text)) {
                 const position = editor.document.positionAt(match.index);
                 const selectedLine = editor.document.lineAt(position.line);
-                const formatedPuke = self.hookBeforeEachInsert(editor, selectedLine, puke);
+                const formattedPuke = self.hookBeforeEachInsert(editor, selectedLine, puke);
 
-                if(selectedLine.text.trim() !== formatedPuke.trim()) {
+                if(selectedLine.text.trim() !== formattedPuke.trim()) {
                     const begin = new vscode.Position(position.line, selectedLine.firstNonWhitespaceCharacterIndex);
                     const end = new vscode.Position(position.line, selectedLine.range.end.character);
-                    editBuilder.replace(new vscode.Range(begin, end), formatedPuke);
+                    editBuilder.replace(new vscode.Range(begin, end), formattedPuke);
                 }
             }
         });

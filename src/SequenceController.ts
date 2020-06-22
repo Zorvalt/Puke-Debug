@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { AbstractPukeControler } from './AbstractPukeEditor';
+import { AbstractPukeController } from './AbstractPukeController';
 
-export class Sequence extends AbstractPukeControler {
+export class SequenceController extends AbstractPukeController {
     private seqNumber = 0;
 
     constructor() {

@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { AbstractPukeControler as AbstractPukeEditor } from './AbstractPukeEditor';
+import { AbstractPukeController } from './AbstractPukeController';
 
-export class PukePointEditor extends AbstractPukeEditor {
+export class PukePointController extends AbstractPukeController {
     constructor() {
         super('Point', 'pukePointFormat');
     }
