@@ -195,3 +195,6 @@ No currently known issue. Feel free to signal it with an issue if you find one! 
 
 ## Release Notes
 See the [CHANGELOG](https://github.com/Zorvalt/Puke-Debug/blob/master/CHANGELOG.md)
+
+## Credits
+Illustration(icon) by [simonecapasso](https://www.fiverr.com/simonecapasso)
