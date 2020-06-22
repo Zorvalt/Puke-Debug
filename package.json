@@ -122,10 +122,6 @@
 				"title": "Clears all puke-points in current file"
 			},
 			{
-				"command": "pukeDebug.updatePukePoints",
-				"title": "Updates all puke-points in current file"
-			},
-			{
 				"command": "pukeDebug.newSequence",
 				"title": "Starts a new puke-sequence and inserts the first print"
 			},
@@ -144,6 +140,10 @@
 			{
 				"command": "pukeDebug.clearExposure",
 				"title": "Clears all variable puke-exposure"
+			},
+			{
+				"command": "pukeDebug.updatePukePoints",
+				"title": "Updates all puke-objects in current file"
 			}
 		],
 		"keybindings": [
