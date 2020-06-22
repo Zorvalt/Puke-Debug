@@ -9,6 +9,7 @@
 	"license": "SEE LICENSE IN LICENSE",
 	"publisher": "Zorvalt",
 	"repository": "https://github.com/Zorvalt/Puke-Debug",
+	"icon": "resources/puke-debug.png",
 	"keywords": [
 		"debug",
 		"print",
