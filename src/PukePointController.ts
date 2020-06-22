@@ -8,10 +8,10 @@ export class PukePointController extends AbstractPukeController {
 
     protected hookBeforeAllInsert(editor: vscode.TextEditor, puke: string): string {
         let filename = editor.document.uri.fsPath;
-        const workpace = vscode.workspace.getWorkspaceFolder(editor.document.uri);
+        const workspace = vscode.workspace.getWorkspaceFolder(editor.document.uri);
 
-        if (workpace) {
-            let rootPath = workpace.uri.fsPath;
+        if (workspace) {
+            let rootPath = workspace.uri.fsPath;
             if (filename.startsWith(rootPath)) {
                 filename = filename.substr(rootPath.length);
             }
