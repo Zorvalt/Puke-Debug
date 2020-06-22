@@ -127,23 +127,23 @@
 			},
 			{
 				"command": "pukeDebug.newSequence",
-				"title": "Starts a new sequence and inserts the first print"
+				"title": "Starts a new puke-sequence and inserts the first print"
 			},
 			{
 				"command": "pukeDebug.nextSequence",
-				"title": "Inserts next sequence print"
+				"title": "Inserts next puke-sequence print"
 			},
 			{
 				"command": "pukeDebug.clearSequence",
-				"title": "Clears all sequence prints"
+				"title": "Clears all puke-sequence prints"
 			},
 			{
 				"command": "pukeDebug.insertExposure",
-				"title": "Insert variable exposure"
+				"title": "Insert variable puke-exposure"
 			},
 			{
 				"command": "pukeDebug.clearExposure",
-				"title": "Clears all variable exposure"
+				"title": "Clears all variable puke-exposure"
 			}
 		],
 		"keybindings": [
