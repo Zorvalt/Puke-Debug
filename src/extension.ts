@@ -85,6 +85,13 @@ export function activate(context: vscode.ExtensionContext) {
 
 	let command8 = registerWithEditor('pukeDebug.clearExposure', (editor) => exposureControler.clearAll(editor));
 	context.subscriptions.push(command8);
+
+	let command9 = registerWithEditor('pukeDebug.clearAll', (editor) => {
+		pukePointControler.clearAll(editor)
+		.then(() => sequence.clearAll(editor))
+		.then(() => exposureControler.clearAll(editor))
+	});
+	context.subscriptions.push(command9);
 }
 
 // this method is called when your extension is deactivated

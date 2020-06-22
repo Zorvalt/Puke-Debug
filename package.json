@@ -144,6 +144,10 @@
 			{
 				"command": "pukeDebug.updatePukePoints",
 				"title": "Updates all puke-objects in current file"
+			},
+			{
+				"command": "pukeDebug.clearAll",
+				"title": "Clears all puke-objects in current file"
 			}
 		],
 		"keybindings": [
