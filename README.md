@@ -21,6 +21,10 @@ print('2')
 doThat()
 print('3')
 ```
+
+## Simple meta-example of puke-debugging puke-debug
+![Demo](resources/puke-debug-demo.gif)
+
 ## More than a snippet
 This extension keeps line numbers up to date when the file changes.
 The puke points are updated when a new one is added or on file change.
