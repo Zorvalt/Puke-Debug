@@ -180,15 +180,15 @@
 		"test": "node ./out/test/runTest.js"
 	},
 	"devDependencies": {
-		"@types/glob": "^7.1.1",
+		"@types/glob": "^7.1.2",
 		"@types/mocha": "^5.2.6",
-		"@types/node": "^10.12.21",
-		"@types/vscode": "^1.33.1",
-		"glob": "^7.1.4",
+		"@types/node": "^10.17.26",
+		"@types/vscode": "^1.46.0",
+		"glob": "^7.1.6",
 		"mocha": "^8.0.1",
-		"tslint": "^5.12.1",
-		"typescript": "^3.3.1",
-		"vscode-test": "^1.0.2"
+		"tslint": "^5.20.1",
+		"typescript": "^3.9.5",
+		"vscode-test": "^1.4.0"
 	},
 	"dependencies": {
 		"vsce": "^1.77.0"
