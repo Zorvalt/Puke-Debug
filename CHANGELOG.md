@@ -6,6 +6,7 @@ Added support for:
 * Variable exposure. Displays the selected variable in the format : 'name = value'
 * Stabilized code base (for evolution and maintenance)
 * Fixed all known bugs
+* Nice logo
 
 ## [0.2.0](https://github.com/Zorvalt/Puke-Debug/releases/tag/v0.2.0) - 2019-09-09
 Added support with default puke-point format for multiple languages:
