@@ -207,4 +207,5 @@ No currently known issue. Feel free to signal it with an issue if you find one! 
 See the [CHANGELOG](https://github.com/Zorvalt/Puke-Debug/blob/master/CHANGELOG.md)
 
 ## Credits
+![Illustration](resources/puke-debug.png)
 Illustration(icon) by [simonecapasso](https://www.fiverr.com/simonecapasso)
