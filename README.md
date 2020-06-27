@@ -34,11 +34,12 @@ This is my first extension! It *seems to work*, but I cannot guarantee anything.
 **I AM NOT RESPONSIBLE FOR ANY LOSS OF CODE OR OTHER PROBLEM YOU MIGHT ENCOUNTER**
 
 ## Why!?!?!?!?!
-Because sometimes... In some very specific contexts... You cannot use a debugger...  
-ONLY in those cases should you use this extension ! It is ***NOT*** a good way to debug!!!!!!!  
+First, this started as a joke because I saw a friend debug like this and I wanted to troll him.
+But sometimes... In some very specific contexts... You cannot use a debugger...
+
 A debugger allows you to inspect memory, create conditional breakpoints, test the real behavior and a lot more.
 This extension is only here to help for very quick and easy problem to fix or when you have no other tool.  
-If despite this warning, you still want to use my extension. Well... Thank you and have fun! :-)
+If despite this warning, you still want to use this extension. Well... Thank you and have fun! :-)
 
 ## Quick start
 ### Basics
