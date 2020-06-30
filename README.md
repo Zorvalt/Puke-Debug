@@ -1,4 +1,8 @@
-# Puke-Debug
+<div align="center">
+	<img width="256" src="https://raw.githubusercontent.com/Zorvalt/Puke-Debug/develop/resources/puke-debug.png" alt="Puke-Debug">
+	<h1>Puke-Debug</h1>
+</div>
+
 A VS Code extension that inserts emetic debug lines where you need them. Last resort option in debugging...
 The inserted debug outputs (puke points) contain the line number and the name of the file.  
 This extension allows you to easily add those horrible debug lines like:
@@ -207,5 +211,4 @@ No currently known issue. Feel free to signal it with an issue if you find one! 
 See the [CHANGELOG](https://github.com/Zorvalt/Puke-Debug/blob/master/CHANGELOG.md)
 
 ## Credits
-![Illustration](resources/puke-debug.png)
-Illustration(icon) by [simonecapasso](https://www.fiverr.com/simonecapasso)
+Illustration(logo) by [simonecapasso](https://www.fiverr.com/simonecapasso)
