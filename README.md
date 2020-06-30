@@ -1,5 +1,5 @@
 <div align="center">
-	<img width="256" src="https://raw.githubusercontent.com/Zorvalt/Puke-Debug/develop/resources/puke-debug.png" alt="Puke-Debug">
+	<img width="256" src="resources/puke-debug.png" alt="Puke-Debug">
 	<h1>Puke-Debug</h1>
 </div>
 
