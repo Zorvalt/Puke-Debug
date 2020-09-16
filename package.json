@@ -36,17 +36,17 @@
 				"puke-debug.pukePointFormat": {
 					"type": "string",
 					"default": "\"PUKE: filename: %filename%, line: %line%\"",
-					"description": "Puke-Point format. Use %line% and %filename% as tags for debug info."
+					"description": "Puke-Point format. Use %line% and %filename% as placeholders for debug info."
 				},
 				"puke-debug.sequenceFormat": {
 					"type": "string",
 					"default": "\"PUKE: => %seq_number% <=\"",
-					"description": "Sequence format. Use %seq_number% as tag for the sequence number."
+					"description": "Sequence format. Use %seq_number% as a placeholder for the sequence number."
 				},
 				"puke-debug.defaultExposureFormat": {
 					"type": "string",
 					"default": "\"PUKE: %name% = \" + %name%",
-					"description": "Default output format when no file type matches. Use %output% as a tag for the output."
+					"description": "Default output format when no file type matches. Use %output% as a placeholder for the output."
 				},
 				"puke-debug.exposureFormats": {
 					"type": "object",
@@ -65,12 +65,12 @@
 						"scala": "\"%name% = \" + %name%.toString()",
 						"typescript": "\"%name% = \" + %name%"
 					},
-					"description": "Format for variable exposure. Use %name% as tag for the variable name."
+					"description": "Format for variable exposure. Use %name% as placeholder for the variable name.\nA list of language tags is available here: https://code.visualstudio.com/docs/languages/identifiers"
 				},
 				"puke-debug.defaultOutputFormat": {
 					"type": "string",
 					"default": "print(%output%)",
-					"description": "Default output format when no file type matches. Use %output% as a tag for the output."
+					"description": "Default output format when no file type matches. Use %output% as a placeholder for the output."
 				},
 				"puke-debug.outputFormats": {
 					"type": "object",
@@ -89,22 +89,36 @@
 						"scala": "println(%output%)",
 						"typescript": "console.log(%output%);"
 					},
-					"description": "Output formats by language. Use %output% as a tag for the output\nA list of language tags is available here: https://code.visualstudio.com/docs/languages/identifiers"
+					"description": "Output formats by language. Use %output% as a placeholder for the output\nA list of language tags is available here: https://code.visualstudio.com/docs/languages/identifiers"
 				},
-				"puke-debug.commentOpening": {
+				"puke-debug.defaultCommentFormat": {
 					"type": "string",
-					"default": "//",
-					"description": "The string to open a comment"
+					"default": "//%comment%",
+					"description": "Default comment format when no file type matches. Use %comment% as a placeholder for the comment"
+				},
+				"puke-debug.commentFormats": {
+					"type": "object",
+					"default": {
+						"shellscript": "#%comment%",
+						"c": "//%comment%",
+						"cpp": "//%comment%",
+						"csharp": "//%comment%",
+						"go": "//%comment%",
+						"java": "//%comment%",
+						"javascript": "//%comment%",
+						"makefile": "#%comment%",
+						"php": "//%comment%",
+						"python": "#%comment%",
+						"rust": "//%comment%",
+						"scala": "//%comment%",
+						"typescript": "//%comment%;"
+					},
+					"description": "Comment formats by language. Use %comment% as a placeholder for the comment\nA list of language tags is available here: https://code.visualstudio.com/docs/languages/identifiers"
 				},
 				"puke-debug.commentTAG": {
 					"type": "string",
 					"default": "PKDBG",
 					"description": "The comment tag to identify puke-points"
-				},
-				"puke-debug.commentClosing": {
-					"type": "string",
-					"default": "",
-					"description": "The string to close a comment"
 				},
 				"puke-debug.updateOnSave": {
 					"type": "boolean",

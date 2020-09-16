@@ -1,6 +1,15 @@
 import * as vscode from 'vscode';
 import * as utils from './utils';
 
+/**
+ * This class represents a generic controller for puking.
+ * It is intended to be inherited by specific controllers.
+ * 
+ * The controller handles basic or common actions such as :
+ * - Formatting the insetions
+ * - Inserting / updating / cleaning pukes
+ * - Provides hooks for easy implementation of controllers
+ */
 export abstract class AbstractPukeController {
     protected commentSubTag: string;
     protected pukeFormatKey: string;
@@ -11,13 +20,19 @@ export abstract class AbstractPukeController {
     }
 
     /**
-     * Builds the comment string at the end of a puke
+     * Builds a comment string to be placed at the end of a puke
      * @returns string A comment string with opening and closing tags
      */
-    protected makeComment(): string {
+    protected makeComment(languageID: string): string {
         const conf = vscode.workspace.getConfiguration('puke-debug');
-        const optionalClosing = (' ' + conf.commentClosing).trimRight();
-        return `${conf.commentOpening} ${conf.commentTAG}/${this.commentSubTag}` + optionalClosing;
+
+        let commentFormat = conf.defaultCommentformat;
+        console.log('commentFormat', commentFormat);
+        if (languageID !== "" && conf.commentFormats.hasOwnProperty(languageID)) {
+            commentFormat = conf.commentFormats[languageID];
+        }
+
+        return commentFormat.replace('%comment%', `${conf.commentTAG}/${this.commentSubTag}`);
     }
 
     /**
@@ -60,7 +75,7 @@ export abstract class AbstractPukeController {
      */
     protected makePuke(languageID: string): string {
         const printStatement = this.getOutputFormat(languageID).replace('%output%', this.getPukeFormat(languageID));
-        const comment = this.makeComment();
+        const comment = this.makeComment(languageID);
         return `${printStatement} ${comment}`;
     }
 
@@ -116,7 +131,8 @@ export abstract class AbstractPukeController {
         let self = this;
         
         // Matches all lines ending with the puke-point comment
-        const regex = new RegExp(utils.escapeRegExp(this.makeComment()) + '\\s*$', 'gm');
+        const comment = utils.escapeRegExp(this.makeComment(editor.document.languageId));
+        const regex = new RegExp(comment + '\\s*$', 'gm');
     
         return editor.edit(function(editBuilder: vscode.TextEditorEdit) {
             // Replaces each line containing a puke point with a new one
@@ -143,7 +159,8 @@ export abstract class AbstractPukeController {
     public clearAll(editor: vscode.TextEditor): Thenable<boolean> {
         const text = editor.document.getText();
         // Matches all lines ending with the puke-point comment
-        const regex = new RegExp(utils.escapeRegExp(this.makeComment()) + '\\s*$', 'gm');
+        const comment = utils.escapeRegExp(this.makeComment(editor.document.languageId));
+        const regex = new RegExp(comment + '\\s*$', 'gm');
     
         return editor.edit(function(editBuilder: vscode.TextEditorEdit) {
             // Deletes each line containing a puke point
