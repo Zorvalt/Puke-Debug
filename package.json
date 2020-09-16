@@ -205,6 +205,7 @@
 		"vscode-test": "^1.4.0"
 	},
 	"dependencies": {
+		"ovsx": "0.1.0-next.bcce4bc",
 		"vsce": "^1.79.5"
 	}
 }
