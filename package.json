@@ -2,7 +2,7 @@
 	"name": "puke-debug",
 	"displayName": "Puke-Debug",
 	"description": "Inserts simple, emetic debug lines where you need them. Last resort option in debugging...",
-	"version": "0.3.0",
+	"version": "0.3.0-rc.1",
 	"engines": {
 		"vscode": "^1.49.0"
 	},
