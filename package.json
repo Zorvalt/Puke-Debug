@@ -61,7 +61,7 @@
 						"makefile": "\"%name% = $%name%\"",
 						"php": "\"%name% = \" . %name%",
 						"python": "\"%name% = \" + str(%name%)",
-						"rust": "\"%name% =  {:?}\", %name%",
+						"rust": "&(%name%)",
 						"scala": "\"%name% = \" + %name%.toString()",
 						"typescript": "\"%name% = \" + %name%"
 					},
