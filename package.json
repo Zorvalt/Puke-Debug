@@ -4,7 +4,7 @@
 	"description": "Inserts simple, emetic debug lines where you need them. Last resort option in debugging...",
 	"version": "0.3.0",
 	"engines": {
-		"vscode": "^1.33.1"
+		"vscode": "^1.49.0"
 	},
 	"license": "SEE LICENSE IN LICENSE",
 	"publisher": "Zorvalt",
