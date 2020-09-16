@@ -4,6 +4,7 @@
 Added support for:
 * Sequence prints. Each print increments a displayed counter
 * Variable exposure. Displays the selected variable in the format : 'name = value'
+* Comments format by language (in the settings)
 * Stabilized code base (for evolution and maintenance)
 * Fixed all known bugs
 * Nice logo
