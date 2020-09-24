@@ -26,8 +26,7 @@ export abstract class AbstractPukeController {
     protected makeComment(languageID: string): string {
         const conf = vscode.workspace.getConfiguration('puke-debug');
 
-        let commentFormat = conf.defaultCommentformat;
-        console.log('commentFormat', commentFormat);
+        let commentFormat = conf.defaultCommentFormat;
         if (languageID !== "" && conf.commentFormats.hasOwnProperty(languageID)) {
             commentFormat = conf.commentFormats[languageID];
         }
