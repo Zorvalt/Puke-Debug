@@ -1,5 +1,8 @@
 # Change Log
 
+## [0.3.1](https://github.com/Zorvalt/Puke-Debug/releases/tag/v0.3.1)
+Fixed inseting pukes with default format (file types not specified in settings)
+
 ## [0.3.0](https://github.com/Zorvalt/Puke-Debug/releases/tag/v0.3.0)
 Added support for:
 * Sequence prints. Each print increments a displayed counter
