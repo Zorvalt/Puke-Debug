@@ -9,7 +9,7 @@ Improved user experience:
 
 Improved consistency amongs commands and settings:
 * Renamed `pukePoint` commands to `Point` (e.g. `insertPukePoint` becomes `insertPoint`)
-* Plurlized commands meant to affect multiple lines
+* Pluralized commands meant to affect multiple lines
 * Renamed configuration `pukePointFormat` to `pointFormat`
 
 Fix:
