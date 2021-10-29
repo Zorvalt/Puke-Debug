@@ -92,14 +92,14 @@ export abstract class AbstractPukeController {
      * Hook for child class to override
      * This hook is executed before EACH insert. It can be used to format a puke with a parameter that depends on the line
      * @param  {vscode.TextEditor} editor An instance of vscode.TextEditor
-     * @param  {vscode.TextLine} selectedLine The line after which the puke will be inserted
+     * @param  {vscode.TextLine} selectedLine The line before which the puke will be inserted
      * @param  {string} puke The puke string to format
      * @returns string The formatted puke string
      */
     protected hookBeforeEachInsert(editor: vscode.TextEditor, selectedLine: vscode.TextLine, puke: string): string { return puke; }
 
     /**
-     * Inserts a puke after each line with a cursor caret
+     * Inserts a puke before each line with a cursor caret
      * @param  {vscode.TextEditor} editor An instance of vscode.TextEditor
      * @returns Thenable A promise that resolves with a value indicating if the edits could be applied.
      */
@@ -110,10 +110,12 @@ export abstract class AbstractPukeController {
             // Inserts a puke for each cursor(selection)
             for (let selection of editor.selections) {
                 const selectedLine = editor.document.lineAt(selection.active);
-                const position = new vscode.Position(selectedLine.lineNumber, selectedLine.range.end.character);
+                
+                const insert_position = new vscode.Position(selectedLine.lineNumber, 0);
                 const indentation = selectedLine.text.substr(0, selectedLine.firstNonWhitespaceCharacterIndex);
-                const formattedPuke = self.hookBeforeEachInsert(editor, selectedLine, puke);
-                editBuilder.insert(position, '\n' + indentation + formattedPuke);
+
+                const formattedPuke = self.hookBeforeEachInsert(editor, selection, puke);
+                editBuilder.insert(insert_position, indentation + formattedPuke + '\n');
             }
         });
     }
