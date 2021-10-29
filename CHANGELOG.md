@@ -1,5 +1,23 @@
 # Change Log
 
+## [1.0.0](https://github.com/Zorvalt/Puke-Debug/releases/tag/v1.0.0)
+Improved user experience:
+* Puke prints are now inserted BEFORE current line.
+  More logical for a lot of users, especially when using exposures:
+    - the selected expression is probably meant to be displayed(for debug)
+    before being used in the code.
+
+Improved consistency amongs commands and settings:
+* Renamed `pukePoint` commands to `Point` (e.g. `insertPukePoint` becomes `insertPoint`)
+* Plurlized commands meant to affect multiple lines
+* Renamed configuration `pukePointFormat` to `pointFormat`
+
+Fix:
+* multi-carret support for exposures
+
+Implement first tests:
+* Covering most basic usages
+
 ## [0.3.2](https://github.com/Zorvalt/Puke-Debug/releases/tag/v0.3.2)
 Package updates:
 * Bump path-parse from 1.0.6 to 1.0.7
