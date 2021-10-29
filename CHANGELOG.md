@@ -1,5 +1,10 @@
 # Change Log
 
+## [0.3.2](https://github.com/Zorvalt/Puke-Debug/releases/tag/v0.3.2)
+Package updates:
+* Bump path-parse from 1.0.6 to 1.0.7
+* Bump glob-parent from 5.1.1 to 5.1.2
+
 ## [0.3.1](https://github.com/Zorvalt/Puke-Debug/releases/tag/v0.3.1)
 Fixed inseting pukes with default format (file types not specified in settings)
 
