@@ -8,11 +8,11 @@ enum Mode {
 	Sequence
 }
 
-function registerWithEditor(commandName: string, command: (editor: vscode.TextEditor) => void): vscode.Disposable {
+function registerWithEditor<T>(commandName: string, command: (editor: vscode.TextEditor) => T): vscode.Disposable {
 	return vscode.commands.registerCommand(commandName, () => {
 		const editor = vscode.window.activeTextEditor;
 		if (editor){
-			command(editor);
+			return command(editor);
 		}
 	});
 }
@@ -24,26 +24,27 @@ export function activate(context: vscode.ExtensionContext) {
 	let exposureController = new ExposureController();
 	let mode = Mode.PukePoint;
 
-	let command0 = registerWithEditor('pukeDebug.insert', (editor) => {
+	let command0 = registerWithEditor('pukeDebug.insert', async (editor) => {
 		if(editor.selection.isSingleLine && !editor.selection.isEmpty) {
-			exposureController.insert(editor);
+			return exposureController.insert(editor);
 		}
 
 		switch(mode) {
 			case Mode.PukePoint:
-			pukePointController.insert(editor).then(()=>pukePointController.updateAll(editor));
+				return pukePointController.insert(editor)
+					.then(() =>pukePointController.updateAll(editor));
 			break;
 
 			case Mode.Sequence:
-			sequenceController.insert(editor);
+				return sequenceController.insert(editor);
 			break;
 		}
 	});
 	context.subscriptions.push(command0);
 
-	let command1 = registerWithEditor('pukeDebug.insertPukePoint', (editor) => {
+	let command1 = registerWithEditor('pukeDebug.insertPukePoint', async (editor) => {
 		mode = Mode.PukePoint;
-		pukePointController.insert(editor).then(()=>pukePointController.updateAll(editor));
+		return pukePointController.insert(editor).then(()=>pukePointController.updateAll(editor));
 	});
 	context.subscriptions.push(command1);
 
@@ -53,27 +54,27 @@ export function activate(context: vscode.ExtensionContext) {
 
 	let command3 = registerWithEditor('pukeDebug.updatePukePoints', (editor) => {
 		mode = Mode.PukePoint;
-		pukePointController.updateAll(editor);
+		return pukePointController.updateAll(editor);
 	});
 	context.subscriptions.push(command3);
 
 	vscode.workspace.onWillSaveTextDocument(() => {
 		const editor = vscode.window.activeTextEditor;
 		if (editor && vscode.workspace.getConfiguration('puke-debug').updateOnSave) {
-			pukePointController.updateAll(editor);
+			return pukePointController.updateAll(editor);
 		}
 	});
 
 	let command4 = registerWithEditor('pukeDebug.newSequence', (editor) => {
 		mode = Mode.Sequence;
 		sequenceController.reset();
-		sequenceController.insert(editor);
+		return sequenceController.insert(editor);
 	});
 	context.subscriptions.push(command4);
 
 	let command5 = registerWithEditor('pukeDebug.nextSequence', (editor) => {
-			mode = Mode.Sequence;
-			sequenceController.insert(editor);
+		mode = Mode.Sequence;
+		return sequenceController.insert(editor);
 	});
 	context.subscriptions.push(command5);
 
@@ -87,9 +88,9 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(command8);
 
 	let command9 = registerWithEditor('pukeDebug.clearAll', (editor) => {
-		pukePointController.clearAll(editor)
-		.then(() => sequenceController.clearAll(editor))
-		.then(() => exposureController.clearAll(editor));
+		return pukePointController.clearAll(editor)
+			.then(() => sequenceController.clearAll(editor))
+			.then(() => exposureController.clearAll(editor));
 	});
 	context.subscriptions.push(command9);
 }
