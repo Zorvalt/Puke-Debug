@@ -8,7 +8,7 @@ export class SequenceController extends AbstractPukeController {
         super('Sequence', 'sequenceFormat');
     }
 
-    protected hookBeforeEachInsert(editor: vscode.TextEditor, selectedLine: vscode.TextLine, puke: string): string {
+    protected hookBeforeEachInsert(editor: vscode.TextEditor, selectedLine: vscode.Range, puke: string): string {
         const seqNumber = this.seqNumber.toString();
         this.seqNumber += 1;
         return puke.replace('%seq_number%', seqNumber);

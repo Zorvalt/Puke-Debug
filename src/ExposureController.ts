@@ -6,8 +6,7 @@ export class ExposureController extends AbstractPukeController {
         super('Exposure', '');
     }
 
-    protected hookBeforeEachInsert(editor: vscode.TextEditor, selectedLine: vscode.TextLine, puke: string): string {
-        const selection = new vscode.Range(editor.selection.start, editor.selection.end);
+    protected hookBeforeEachInsert(editor: vscode.TextEditor, selection: vscode.Range, puke: string): string {
         return puke.replace(/%name%/g, editor.document.getText(selection));
     }
 

@@ -92,11 +92,11 @@ export abstract class AbstractPukeController {
      * Hook for child class to override
      * This hook is executed before EACH insert. It can be used to format a puke with a parameter that depends on the line
      * @param  {vscode.TextEditor} editor An instance of vscode.TextEditor
-     * @param  {vscode.TextLine} selectedLine The line before which the puke will be inserted
+     * @param  {vscode.Range} selection The active selection in the document
      * @param  {string} puke The puke string to format
      * @returns string The formatted puke string
      */
-    protected hookBeforeEachInsert(editor: vscode.TextEditor, selectedLine: vscode.TextLine, puke: string): string { return puke; }
+    protected hookBeforeEachInsert(editor: vscode.TextEditor, selection: vscode.Range, puke: string): string { return puke; }
 
     /**
      * Inserts a puke before each line with a cursor caret
@@ -141,7 +141,7 @@ export abstract class AbstractPukeController {
             while(match = regex.exec(text)) {
                 const position = editor.document.positionAt(match.index);
                 const selectedLine = editor.document.lineAt(position.line);
-                const formattedPuke = self.hookBeforeEachInsert(editor, selectedLine, puke);
+                const formattedPuke = self.hookBeforeEachInsert(editor, selectedLine.range, puke);
 
                 if(selectedLine.text.trim() !== formattedPuke.trim()) {
                     const begin = new vscode.Position(position.line, selectedLine.firstNonWhitespaceCharacterIndex);
