@@ -42,28 +42,20 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 	context.subscriptions.push(command0);
 
-	let command1 = registerWithEditor('pukeDebug.insertPukePoint', async (editor) => {
+	let command1 = registerWithEditor('pukeDebug.insertPoint', async (editor) => {
 		mode = Mode.PukePoint;
 		return pukePointController.insert(editor).then(()=>pukePointController.updateAll(editor));
 	});
 	context.subscriptions.push(command1);
 
-
-	let command2 = registerWithEditor('pukeDebug.clearPukePoints', (editor) => pukePointController.clearAll(editor));
-	context.subscriptions.push(command2);
-
-	let command3 = registerWithEditor('pukeDebug.updatePukePoints', (editor) => {
+	let command2 = registerWithEditor('pukeDebug.updatePoints', (editor) => {
 		mode = Mode.PukePoint;
 		return pukePointController.updateAll(editor);
 	});
-	context.subscriptions.push(command3);
+	context.subscriptions.push(command2);
 
-	vscode.workspace.onWillSaveTextDocument(() => {
-		const editor = vscode.window.activeTextEditor;
-		if (editor && vscode.workspace.getConfiguration('puke-debug').updateOnSave) {
-			return pukePointController.updateAll(editor);
-		}
-	});
+	let command3 = registerWithEditor('pukeDebug.clearPoints', (editor) => pukePointController.clearAll(editor));
+	context.subscriptions.push(command3);
 
 	let command4 = registerWithEditor('pukeDebug.newSequence', (editor) => {
 		mode = Mode.Sequence;
@@ -78,13 +70,13 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 	context.subscriptions.push(command5);
 
-	let command6 = registerWithEditor('pukeDebug.clearSequence', (editor) => sequenceController.clearAll(editor));
+	let command6 = registerWithEditor('pukeDebug.clearSequences', (editor) => sequenceController.clearAll(editor));
 	context.subscriptions.push(command6);
 
 	let command7 = registerWithEditor('pukeDebug.insertExposure', (editor) => exposureController.insert(editor));
 	context.subscriptions.push(command7);
 
-	let command8 = registerWithEditor('pukeDebug.clearExposure', (editor) => exposureController.clearAll(editor));
+	let command8 = registerWithEditor('pukeDebug.clearExposures', (editor) => exposureController.clearAll(editor));
 	context.subscriptions.push(command8);
 
 	let command9 = registerWithEditor('pukeDebug.clearAll', (editor) => {
@@ -93,6 +85,13 @@ export function activate(context: vscode.ExtensionContext) {
 			.then(() => exposureController.clearAll(editor));
 	});
 	context.subscriptions.push(command9);
+
+	vscode.workspace.onWillSaveTextDocument(() => {
+		const editor = vscode.window.activeTextEditor;
+		if (editor && vscode.workspace.getConfiguration('puke-debug').updateOnSave) {
+			return pukePointController.updateAll(editor);
+		}
+	});
 }
 
 // this method is called when your extension is deactivated

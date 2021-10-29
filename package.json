@@ -33,7 +33,7 @@
 			"type": "object",
 			"title": "Puke-Debug",
 			"properties": {
-				"puke-debug.pukePointFormat": {
+				"puke-debug.pointFormat": {
 					"type": "string",
 					"default": "\"PUKE: filename: %filename%, line: %line%\"",
 					"description": "Puke-Point format. Use %line% and %filename% as placeholders for debug info."
@@ -129,11 +129,15 @@
 		},
 		"commands": [
 			{
-				"command": "pukeDebug.insertPukePoint",
+				"command": "pukeDebug.insertPoint",
 				"title": "Insert puke-point"
 			},
 			{
-				"command": "pukeDebug.clearPukePoints",
+				"command": "pukeDebug.updatePoints",
+				"title": "Updates all puke-objects in current file"
+			},
+			{
+				"command": "pukeDebug.clearPoints",
 				"title": "Clears all puke-points in current file"
 			},
 			{
@@ -145,7 +149,7 @@
 				"title": "Inserts next puke-sequence print"
 			},
 			{
-				"command": "pukeDebug.clearSequence",
+				"command": "pukeDebug.clearSequences",
 				"title": "Clears all puke-sequence prints"
 			},
 			{
@@ -153,12 +157,8 @@
 				"title": "Insert variable puke-exposure"
 			},
 			{
-				"command": "pukeDebug.clearExposure",
+				"command": "pukeDebug.clearExposures",
 				"title": "Clears all variable puke-exposure"
-			},
-			{
-				"command": "pukeDebug.updatePukePoints",
-				"title": "Updates all puke-objects in current file"
 			},
 			{
 				"command": "pukeDebug.clearAll",
@@ -173,7 +173,7 @@
 				"when": "editorFocus"
 			},
 			{
-				"command": "pukeDebug.insertPukePoint",
+				"command": "pukeDebug.insertPoint",
 				"key": "ctrl+alt+shift+p p",
 				"mac": "ctrl+cmd+shift+p p",
 				"when": "editorFocus"

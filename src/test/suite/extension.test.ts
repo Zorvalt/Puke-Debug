@@ -86,11 +86,11 @@ suite('Extension Test Suite', () => {
 		`),
 		async (editor: vscode.TextEditor) => {
 			setCursorsAtLines(editor, 9);
-			await vscode.commands.executeCommand("pukeDebug.insertPukePoint");
+			await vscode.commands.executeCommand("pukeDebug.insertPoint");
 			setCursorsAtLines(editor, 8);
-			await vscode.commands.executeCommand("pukeDebug.insertPukePoint");
+			await vscode.commands.executeCommand("pukeDebug.insertPoint");
 			setCursorsAtLines(editor, 7);
-			await vscode.commands.executeCommand("pukeDebug.insertPukePoint");
+			await vscode.commands.executeCommand("pukeDebug.insertPoint");
 		}
 	);
 
@@ -124,7 +124,7 @@ suite('Extension Test Suite', () => {
 		`),
 		async (editor: vscode.TextEditor) => {
 			setCursorsAtLines(editor, [7,8,9]);
-			await vscode.commands.executeCommand("pukeDebug.insertPukePoint");
+			await vscode.commands.executeCommand("pukeDebug.insertPoint");
 		}
 	);
 
@@ -164,7 +164,7 @@ suite('Extension Test Suite', () => {
 			}
 		`),
 		async (editor: vscode.TextEditor) => {
-			await vscode.commands.executeCommand("pukeDebug.updatePukePoints");
+			await vscode.commands.executeCommand("pukeDebug.updatePoints");
 		}
 	);
 
@@ -215,7 +215,7 @@ suite('Extension Test Suite', () => {
 			}
 		`),
 		async (editor: vscode.TextEditor) => {
-			await vscode.commands.executeCommand("pukeDebug.clearPukePoints");
+			await vscode.commands.executeCommand("pukeDebug.clearPoints");
 		}
 	);
 
@@ -391,7 +391,7 @@ suite('Extension Test Suite', () => {
 			}
 		`),
 		async (editor: vscode.TextEditor) => {
-			await vscode.commands.executeCommand("pukeDebug.clearSequence");
+			await vscode.commands.executeCommand("pukeDebug.clearSequences");
 		}
 	);
 
@@ -526,7 +526,7 @@ suite('Extension Test Suite', () => {
 			}
 		`),
 		async (editor: vscode.TextEditor) => {
-			await vscode.commands.executeCommand("pukeDebug.clearExposure");
+			await vscode.commands.executeCommand("pukeDebug.clearExposures");
 		}
 	);
 
@@ -563,7 +563,7 @@ suite('Extension Test Suite', () => {
 		`),
 		async (editor: vscode.TextEditor) => {
 			setCursorsAtLines(editor, 7);
-			await vscode.commands.executeCommand("pukeDebug.insertPukePoint");
+			await vscode.commands.executeCommand("pukeDebug.insertPoint");
 			setCursorsAtLines(editor, 9);
 			await vscode.commands.executeCommand("pukeDebug.insert");
 			setCursorsAtLines(editor, 3);
@@ -571,11 +571,11 @@ suite('Extension Test Suite', () => {
 			setCursorsAtLines(editor, 11);
 			await vscode.commands.executeCommand("pukeDebug.insert");
 			setCursorsAtLines(editor, 13);
-			await vscode.commands.executeCommand("pukeDebug.insertPukePoint");
+			await vscode.commands.executeCommand("pukeDebug.insertPoint");
 			setCursorsAtLines(editor, 8);
 			await vscode.commands.executeCommand("pukeDebug.nextSequence");
 
-			await vscode.commands.executeCommand("pukeDebug.updatePukePoints");
+			await vscode.commands.executeCommand("pukeDebug.updatePoints");
 		}
 	);
 
