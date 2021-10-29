@@ -198,14 +198,12 @@
 		"@types/mocha": "^5.2.6",
 		"@types/node": "^10.17.34",
 		"@types/vscode": "^1.49.0",
-		"glob": "^7.1.6",
-		"mocha": "^8.1.3",
-		"tslint": "^5.20.1",
-		"typescript": "^3.9.7",
-		"vscode-test": "^1.4.0"
-	},
-	"dependencies": {
-		"ovsx": "0.1.0-next.bcce4bc",
-		"vsce": "^1.79.5"
+		"@vscode/test-electron": "^1.6.2",
+		"glob": "^7.2.0",
+		"mocha": "^9.1.3",
+		"ovsx": "^0.2.1",
+		"tslint": "^6.1.3",
+		"typescript": "^4.4.4",
+		"vsce": "^1.100.2"
 	}
 }
