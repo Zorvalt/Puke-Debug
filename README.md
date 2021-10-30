@@ -45,6 +45,12 @@ A debugger allows you to inspect memory, create conditional breakpoints, test th
 This extension is only here to help for very quick and easy problem to fix or when you have no other tool.  
 If despite this warning, you still want to use this extension. Well... Thank you and have fun! :-)
 
+## Get the extension
+- [VS Marketplace](https://marketplace.visualstudio.com/items?itemName=Zorvalt.puke-debug)
+- [Open VSX](https://open-vsx.org/extension/Zorvalt/puke-debug)
+- [GitHub release page](https://github.com/Zorvalt/Puke-Debug/releases)
+- [GitHub repository](https://github.com/Zorvalt/Puke-Debug)
+
 ## Quick start
 ### Basics
 There are three types of output :
